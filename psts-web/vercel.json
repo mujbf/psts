@@ -11,4 +11,4 @@
     "scripts": {
       "build": "vite build"
     }
-  }
+}
