@@ -14,7 +14,7 @@ function App() {
     <>
       <Navbar />
       <div className="w-screen h-screen flex items-center justify-center">
-        <p className="montserrat-title ">Knob Section</p>
+        <p className="montserrat-title ">Home Knob Section</p>
       </div>
       <Side1 />
       <Col1 />
