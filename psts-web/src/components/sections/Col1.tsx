@@ -1,7 +1,7 @@
-// import React from "react";
+import React from "react";
 import { Globe2, BookOpen, Shield, ArrowRight } from "lucide-react";
 
-const Col1 = () => {
+const Col1: React.FC = () => {
   const cards = [
     {
       icon: <Globe2 className="w-20 h-20 text-primary" strokeWidth={1} />,

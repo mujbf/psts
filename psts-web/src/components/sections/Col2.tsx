@@ -1,9 +1,9 @@
-// import React from "react";
+import React from "react";
 import { ArrowRight } from "lucide-react";
 import image1 from "../../assets/images/people/l-schmid.jpg";
 import image2 from "../../assets/images/people/s-perera.jpg";
 
-const Col2 = () => {
+const Col2: React.FC = () => {
   const cards = [
     {
       image: image1,

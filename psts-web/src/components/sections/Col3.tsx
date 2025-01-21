@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { Star, StarHalf } from "lucide-react";
 import imageSample from "../../assets/images/testimonal-user-sample.png";
@@ -10,7 +11,7 @@ interface Testimonial {
   imageUrl: string;
 }
 
-const Col3 = () => {
+const Col3: React.FC = () => {
   const [position, setPosition] = useState(0);
 
   const testimonials: Testimonial[] = [
