@@ -65,14 +65,14 @@ const Col3: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPosition((prev) =>
-        prev === -(testimonials.length - 1) * 100 ? 0 : prev - 100
-      );
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setPosition((prev) =>
+  //       prev === -(testimonials.length - 1) * 100 ? 0 : prev - 100
+  //     );
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [testimonials.length]);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -83,8 +83,9 @@ const Col3: React.FC = () => {
       stars.push(
         <Star
           key={`star-${i}`}
-          className="w-4 h-4 text-yellow-400 fill-current"
+          className="w-8 h-8 text-yellow-400 fill-current"
           strokeWidth={1}
+          stroke="#FC430F"
         />
       );
     }
@@ -93,8 +94,9 @@ const Col3: React.FC = () => {
       stars.push(
         <StarHalf
           key="half-star"
-          className="w-4 h-4 text-yellow-400 fill-current"
+          className="w-8 h-8 text-yellow-400 fill-current"
           strokeWidth={1}
+          stroke="#FC430F"
         />
       );
     }
@@ -103,8 +105,8 @@ const Col3: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 pt-20">
+    <div className="w-full bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-20">
         <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-gray-800 mb-16">
           What Our Clients
           <span className="text-primary"> Say About Us</span>
@@ -112,27 +114,27 @@ const Col3: React.FC = () => {
 
         <div className="relative overflow-hidden">
           <div
-            className="flex transition-transform duration-1000 ease-in-out"
+            className="flex transition-transform duration-1000 ease-in-out  "
             style={{ transform: `translateX(${position}%)` }}
           >
             {testimonials.map((testimonial, index) => (
               <div key={index} className="min-w-full md:min-w-[33.333%] px-4">
-                <div className="p-6 rounded-2xl border border-primary shadow-sm bg-white">
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={testimonial.imageUrl}
-                      alt={testimonial.name}
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
-                    <div className="ml-4">
-                      <h3 className="font-medium text-lg text-gray-900">
-                        {testimonial.name}
-                      </h3>
-                      <p className="text-gray-600">{testimonial.designation}</p>
-                    </div>
+                <div className="px-6 py-10 rounded-2xl border-2 border-[#FFB09A] shadow-sm bg-white flex flex-col items-center gap-8 ">
+                  <img
+                    src={testimonial.imageUrl}
+                    alt={testimonial.name}
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                  <div className="">
+                    <h3 className="montserrat-semibold text-3xl text-primary text-center">
+                      {testimonial.name}
+                    </h3>
+                    <p className="montserrat-semibold text-lg text-black-60 text-center">
+                      {testimonial.designation}
+                    </p>
                   </div>
 
-                  <blockquote className="text-gray-700 mb-4 italic">
+                  <blockquote className="roboto-body text-lg text-gray-700 mb-4 text-center py-4 border-y border-[#CECECC]">
                     "{testimonial.quote}"
                   </blockquote>
 

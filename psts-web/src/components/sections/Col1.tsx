@@ -1,56 +1,76 @@
 import React from "react";
-import { Globe2, BookOpen, Shield, ArrowRight } from "lucide-react";
 
 const Col1: React.FC = () => {
   const cards = [
     {
-      icon: <Globe2 className="w-20 h-20 text-primary" strokeWidth={1} />,
-      title: "Global Trade Solutions",
+      image: (
+        <img
+          src="/images/comprehensive.png"
+          alt="Comprehensive"
+          className="w-auto h-24 md:h-40 mx-auto"
+        />
+      ),
+      title: "Comprehensive",
       description:
-        "Access comprehensive international trade solutions that optimize your cross-border operations and enhance market reach.",
+        "Our solutions are end-to-end and designed to make safeguarding your IP hassle-free as it can be, while ensuring continuous monitoring.",
+      link: "/comprehensive",
     },
     {
-      icon: <BookOpen className="w-20 h-20 text-primary" strokeWidth={1} />,
-      title: "Regulatory Expertise",
+      image: (
+        <img
+          src="/images/strategic.png"
+          alt="Strategic"
+          className="w-auto h-40 mx-auto"
+        />
+      ),
+      title: "Strategic",
       description:
-        "Stay compliant with ever-changing trade regulations through our expert guidance and up-to-date regulatory intelligence.",
+        "Our experience and long standing relationships with enforcement agencies and regulatory bodies help us navigate complexity with ease.",
+      link: "/strategic",
     },
     {
-      icon: <Shield className="w-20 h-20 text-primary" strokeWidth={1} />,
-      title: "Risk Management",
+      image: (
+        <img
+          src="/images/tailored.png"
+          alt="Tailored"
+          className="w-auto h-40 mx-auto"
+        />
+      ),
+      title: "Tailored",
       description:
-        "Protect your business with robust risk assessment strategies and compliance frameworks tailored to your operations.",
+        "Global, regional, or local, however you compete and vary your product strategy, we will customize our services to suit your business model and brand aspirations.",
+      link: "/tailored",
     },
   ];
 
   return (
-    <div className="w-full min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 pt-20">
+    <div className="w-full">
+      <div className="max-w-7xl mx-auto px-4 py-20">
         <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-black-60 mb-16">
-          Ensuring Ethical Standards Through{" "}
-          <span className="text-primary">
-            Comprehensive Social Compliance Solutions
-          </span>
+          Your IP. <br />
+          <span className="text-primary">Your competitive advantage.</span>
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {cards.map((card, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl border border-primary shadow-sm relative overflow-hidden"
+              className="px-6 py-10 md:px-8 md:py-12 rounded-2xl border-2 border-[#DDDDDD] shadow-sm relative flex flex-col items-center"
             >
               <div className="absolute inset-0 card-gradient -z-10" />
-              <div className="relative z-10">
-                <div className="mb-4">{card.icon}</div>
-                <p className="roboto-body text-black-60 mb-4">
+              <div className="relative z-10 flex flex-col items-center space-y-6">
+                <div className="flex justify-center w-full">{card.image}</div>
+                <h3 className="montserrat-semibold text-2xl md:text-3xl text-primary text-center">
+                  {card.title}
+                </h3>
+                <p className="roboto-body text-black-60 text-center">
                   {card.description}
                 </p>
                 <a
-                  href="#"
-                  className="inline-flex items-center text-primary montserrat-medium underline"
+                  href={card.link}
+                  className="inline-flex items-center text-[#AAAAAA] montserrat-semibold text-xl underline hover:text-primary/80 transition-colors"
                 >
                   Learn More
-                  <ArrowRight className="ml-2 w-4 h-4" />
                 </a>
               </div>
             </div>

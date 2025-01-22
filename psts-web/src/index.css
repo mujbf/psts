@@ -8,7 +8,7 @@
 .montserrat-semibold {
   font-family: "Montserrat", serif;
   font-optical-sizing: auto;
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -43,5 +43,9 @@
 }
 
 .card-gradient {
-  background: linear-gradient(135deg, #F4F4F44D 0%, #6766664D 100%);
+  background: linear-gradient(145deg, #F4F4F433 0%, #6766664D 100%);
+}
+
+.primary-gradient{
+  background: linear-gradient(125deg, #FC430FD9 0%, #C00B11D9 100%);
 }

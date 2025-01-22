@@ -3,10 +3,10 @@ import PrimaryButton from "../blocks/PrimaryButton";
 
 const Side2: React.FC = () => {
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-20">
         {/* Text Content - Left Side */}
-        <div className="flex flex-col gap-40">
+        <div className="flex flex-col gap-12 md:gap-40">
           <h1 className="montserrat-regular text-[#AAAAAA] text-2xl md:text-3xl leading-tight text-black-60 w-3/4">
             At Perera and Schmid, we are more than just a service provider—we
             are your trusted partner in navigating the complexities of trade,
