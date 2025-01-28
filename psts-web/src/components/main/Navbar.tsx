@@ -1,45 +1,54 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, MessageCircle, ArrowRight } from "lucide-react";
 import logoImg from "../../assets/logo.svg";
 
 interface NavItemProps {
-  href: string;
+  to: string;
   children: React.ReactNode;
 }
 
-const NavItem = ({ href, children }: NavItemProps) => (
-  <a
-    href={href}
-    className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors roboto-body"
-  >
-    {children}
-  </a>
-);
+const NavItem = ({ to, children }: NavItemProps) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
+  return (
+    <Link
+      to={to}
+      className={`text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors roboto-body ${
+        isActive ? "text-orange-600" : ""
+      }`}
+    >
+      {children}
+    </Link>
+  );
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const services = [
-    { name: "Consulting", href: "/services/consulting" },
-    { name: "Development", href: "/services/development" },
-    { name: "Design", href: "/services/design" },
+    { name: "Consulting", to: "/services/consulting" },
+    { name: "Development", to: "/services/development" },
+    { name: "Design", to: "/services/design" },
   ];
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white shadow-lg z-10">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-24">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            {/* <span className="text-2xl font-bold text-orange-600">PSTS</span> */}
-            <img src={logoImg} alt="Company Logo" />
+            <Link to="/">
+              <img src={logoImg} alt="Company Logo" />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            <NavItem href="/">Home</NavItem>
-            <NavItem href="/about">About</NavItem>
+            <NavItem to="/">Home</NavItem>
+            <NavItem to="/about">About</NavItem>
 
             {/* Services Dropdown */}
             <div className="relative">
@@ -55,14 +64,15 @@ const Navbar = () => {
                 <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                   <div className="py-1" role="menu">
                     {services.map((service) => (
-                      <a
+                      <Link
                         key={service.name}
-                        href={service.href}
+                        to={service.to}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 roboto-body"
                         role="menuitem"
+                        onClick={() => setIsServicesOpen(false)}
                       >
                         {service.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -70,11 +80,10 @@ const Navbar = () => {
             </div>
 
             {/* Contact Button */}
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="inline-flex items-center text-sm font-medium rounded-md text-black hover:bg-orange-700 montserrat-button"
             >
-              {/* <MessageCircle className="h-4 w-4 mr-2" /> */}
               <ArrowRight
                 size={16}
                 strokeWidth={1}
@@ -82,7 +91,7 @@ const Navbar = () => {
                 className="h-8 w-14 mr-2 border-2 rounded-full hover:bg-night hover:text-white"
               />
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -105,18 +114,20 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
+              onClick={() => setIsOpen(false)}
             >
               Home
-            </a>
-            <a
-              href="/about"
+            </Link>
+            <Link
+              to="/about"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
+              onClick={() => setIsOpen(false)}
             >
               About
-            </a>
+            </Link>
 
             {/* Mobile Services Dropdown */}
             <div>
@@ -130,26 +141,31 @@ const Navbar = () => {
               {isServicesOpen && (
                 <div className="pl-4">
                   {services.map((service) => (
-                    <a
+                    <Link
                       key={service.name}
-                      href={service.href}
+                      to={service.to}
                       className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
+                      onClick={() => {
+                        setIsOpen(false);
+                        setIsServicesOpen(false);
+                      }}
                     >
                       {service.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
             {/* Mobile Contact Button */}
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="block px-3 py-2 rounded-md text-base font-medium text-white bg-orange-600 hover:bg-orange-700 flex items-center"
+              onClick={() => setIsOpen(false)}
             >
               <MessageCircle className="h-4 w-4 mr-2" />
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       )}

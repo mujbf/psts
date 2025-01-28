@@ -49,3 +49,8 @@
 .primary-gradient{
   background: linear-gradient(125deg, #FC430FD9 0%, #C00B11D9 100%);
 }
+
+.thebutton:hover{
+  border: 2px solid #FFFFFF !important ;
+  padding-right: 60px !important; 
+}

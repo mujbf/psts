@@ -38,7 +38,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
         px-6
         py-2
         mr-2
-        group-hover:bg-white
+        group-hover:bg-red
         transition-all
         duration-300
       "

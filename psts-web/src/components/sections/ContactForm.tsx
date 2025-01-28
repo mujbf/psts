@@ -1,7 +1,7 @@
 import React from "react";
-import MainButton from "../blocks/MainButton";
+import PrimaryButton from "../blocks/PrimaryButton";
 
-const ContactUs: React.FC = () => {
+const ContactForm: React.FC = () => {
   return (
     <div className="w-full primary-gradient relative">
       {/* Main container with max width */}
@@ -17,8 +17,11 @@ const ContactUs: React.FC = () => {
             record, we empower brands to thrive in competitive markets.
           </p>
 
-          <div>
-            <MainButton text="Submit" />
+          <div className="flex w-full justify-start">
+            <PrimaryButton
+              text="Learn More"
+              onClick={() => console.log("clicked")}
+            />
           </div>
         </div>
       </div>
@@ -35,4 +38,4 @@ const ContactUs: React.FC = () => {
   );
 };
 
-export default ContactUs;
+export default ContactForm;
