@@ -50,7 +50,13 @@
   background: linear-gradient(125deg, #FC430FD9 0%, #C00B11D9 100%);
 }
 
-.thebutton:hover{
+/* .thebutton:hover{
   border: 2px solid #FFFFFF !important ;
   padding-right: 60px !important; 
+} */
+
+.gradient-text {
+  background: linear-gradient(to bottom, #FF7B56, rgba(255, 255, 255, 0.5));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import MainButton from "../blocks/MainButton";
+import MainButton from "../blocks/ModernButton";
 
 const ContactUs: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const ContactUs: React.FC = () => {
           </p>
 
           <div>
-            <MainButton text="Submit" />
+            <MainButton text="Submit" variant="white" />
           </div>
         </div>
       </div>

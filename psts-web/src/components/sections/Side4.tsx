@@ -1,5 +1,5 @@
 import React from "react";
-import MainButton from "../blocks/MainButton";
+import ModernButton from "../blocks/ModernButton";
 
 const Side4: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const Side4: React.FC = () => {
             />
           </div>
           <div>
-            <MainButton text="Submit" />
+            <ModernButton text="Learn More" variant="black" />
           </div>
         </div>
       </div>

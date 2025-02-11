@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/Services";
+import Knob from "./pages/Knob";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             element={<ServicePage title="Design" />}
           />
           <Route path="*" element={<NotFound />} />
+          <Route path="/knob" element={<Knob />} />
         </Routes>
         <Footer />
       </div>
