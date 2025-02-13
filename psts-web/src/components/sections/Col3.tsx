@@ -19,7 +19,7 @@ const Col3: React.FC = () => {
       name: "Sarah Chen",
       designation: "Global Trade Director",
       quote:
-        "Their compliance solutions have transformed how we manage international trade operations. The level of expertise and support is unmatched.",
+        "Their compliance solutions have transformed how we manage international trade operations. The level is unmatched.",
       rating: 5,
       imageUrl: imageSample,
     },
@@ -106,7 +106,7 @@ const Col3: React.FC = () => {
 
   return (
     <div className="w-full bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-20">
         <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-gray-800 mb-16">
           What Our Clients
           <span className="text-primary"> Say About Us</span>
@@ -118,8 +118,8 @@ const Col3: React.FC = () => {
             style={{ transform: `translateX(${position}%)` }}
           >
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="min-w-full md:min-w-[33.333%] px-4">
-                <div className="px-6 py-10 rounded-2xl border-2 border-[#FFB09A] shadow-sm bg-white flex flex-col items-center gap-8 ">
+              <div key={index} className="min-w-full md:min-w-[33.333%] p-4">
+                <div className="px-6 py-10 rounded-2xl border-2 border-[#FFB09A] shadow-sm bg-white flex flex-col items-center gap-8 ring-8 ring-[#FFE9E3]">
                   <img
                     src={testimonial.imageUrl}
                     alt={testimonial.name}
@@ -134,7 +134,7 @@ const Col3: React.FC = () => {
                     </p>
                   </div>
 
-                  <blockquote className="roboto-body text-lg text-gray-700 mb-4 text-center py-4 border-y border-[#CECECC]">
+                  <blockquote className="roboto-body text-black-60 mb-4 text-center py-4 border-y border-[#CECECC]">
                     "{testimonial.quote}"
                   </blockquote>
 

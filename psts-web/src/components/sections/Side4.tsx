@@ -1,5 +1,7 @@
 import React from "react";
-import ModernButton from "../blocks/ModernButton";
+// import ModernButton from "../blocks/ModernButton";
+// import ButtonDemo from "../blocks/ButtonDemo";
+import CustomButton from "../blocks/CustomButton";
 
 const Side4: React.FC = () => {
   return (
@@ -24,7 +26,9 @@ const Side4: React.FC = () => {
             />
           </div>
           <div>
-            <ModernButton text="Learn More" variant="black" />
+            {/* <ModernButton text="Learn More" variant="black" />
+            <ButtonDemo /> */}
+            <CustomButton text="Learn More" variant="white" />
           </div>
         </div>
       </div>

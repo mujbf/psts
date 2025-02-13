@@ -14,11 +14,11 @@ interface ContentItem {
   lightColor: string;
 }
 
-interface KnobCarouselProps {
+interface KnobCarousel2Props {
   rotationInterval?: number;
 }
 
-const KnobCarousel: React.FC<KnobCarouselProps> = ({
+const KnobCarousel2: React.FC<KnobCarousel2Props> = ({
   rotationInterval = 10000,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -71,7 +71,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     // Desktop: Position sections on the left side (-150 to -60 degrees)
     // Mobile: Position sections on the top side (30 to 120 degrees)
     const isMobile = window.innerWidth < 768;
-    const baseAngle = isMobile ? -160 : 110;
+    const baseAngle = isMobile ? -160 : -65;
     const startAngle = baseAngle + index * sectionAngle;
     const endAngle = startAngle + sectionAngle;
 
@@ -105,7 +105,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     const isMobile = window.innerWidth < 768;
 
     // Use the same base angles as your sections
-    const baseAngle = isMobile ? -165 : 110;
+    const baseAngle = isMobile ? -165 : -65;
 
     // Calculate angle for center of section
     const angle =
@@ -133,7 +133,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-start md:items-center">
         {/* Content Section with max-width container */}
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 flex justify-end">
           <div className="p-8 md:w-[60%] flex flex-col gap-16">
             <h1 className="montserrat-medium text-4xl md:text-7xl leading-tight gradient-text">
               Your Trusted Partner in Trade, Customs, and Brand Protection
@@ -159,7 +159,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
         </div>
 
         {/* Carousel Section - maintaining original positioning */}
-        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
+        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:left-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
           <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
             <svg
               viewBox="-200 -200 400 400"
@@ -223,4 +223,4 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   );
 };
 
-export default KnobCarousel;
+export default KnobCarousel2;

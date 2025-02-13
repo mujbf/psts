@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, MessageCircle, ArrowRight } from "lucide-react";
 import logoImg from "../../assets/logo.svg";
+import CustomButton from "../blocks/CustomButton";
 
 interface NavItemProps {
   to: string;
@@ -15,7 +16,7 @@ const NavItem = ({ to, children }: NavItemProps) => {
   return (
     <Link
       to={to}
-      className={`text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors roboto-body ${
+      className={`roboto-body px-3 py-2 text-black-80 hover:text-primary ${
         isActive ? "text-orange-600" : ""
       }`}
     >
@@ -35,8 +36,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-lg z-10">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="bg-white shadow-lg z-10" id="main-navbar">
+      <div className="max-w-7xl mx-auto px-4 md:px-12">
         <div className="flex justify-between h-24">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
@@ -49,49 +50,10 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <NavItem to="/">Home</NavItem>
             <NavItem to="/about">About</NavItem>
-
-            {/* Services Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center roboto-body text-base"
-              >
-                Services
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-
-              {isServicesOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                  <div className="py-1" role="menu">
-                    {services.map((service) => (
-                      <Link
-                        key={service.name}
-                        to={service.to}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 roboto-body"
-                        role="menuitem"
-                        onClick={() => setIsServicesOpen(false)}
-                      >
-                        {service.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+            <NavItem to="/services/consulting">Services</NavItem>
 
             {/* Contact Button */}
-            <Link
-              to="/contact"
-              className="inline-flex items-center text-sm font-medium rounded-md text-black hover:bg-orange-700 montserrat-button"
-            >
-              <ArrowRight
-                size={16}
-                strokeWidth={1}
-                absoluteStrokeWidth
-                className="h-8 w-14 mr-2 border-2 rounded-full hover:bg-night hover:text-white"
-              />
-              Contact
-            </Link>
+            <CustomButton text="Contact" variant="black" />
           </div>
 
           {/* Mobile menu button */}

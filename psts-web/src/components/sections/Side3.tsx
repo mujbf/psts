@@ -3,7 +3,7 @@ import React from "react";
 const Side3: React.FC = () => {
   return (
     <div className="w-full">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-20">
         {/* Text Content - Left Side */}
         <div className="flex flex-col gap-12 md:gap-40">
           <div className="flex flex-col gap-5 w-1/2">

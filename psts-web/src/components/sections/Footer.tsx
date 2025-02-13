@@ -5,15 +5,7 @@ const Footer: React.FC = () => {
   const quickLinks = [
     { text: "About Us", href: "/about" },
     { text: "Our Services", href: "/services" },
-    { text: "Contact", href: "/contact" },
-    { text: "Blog", href: "/blog" },
-  ];
-
-  const services = [
-    { text: "Global Trade Solutions", href: "/services/trade" },
-    { text: "Regulatory Expertise", href: "/services/regulatory" },
-    { text: "Risk Management", href: "/services/risk" },
-    { text: "Brand Protection", href: "/services/brand" },
+    { text: "Contact Us", href: "/contact" },
   ];
 
   const contactInfo = [
@@ -36,15 +28,15 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="w-full bg-[#090C08] text-white-60">
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {/* Company Description */}
           <div className="space-y-6">
             <img
               src="/images/logo.png"
               alt="Perera and Schmid"
-              className="h-12 w-auto"
+              className="h-auto w-full"
             />
             <p className="roboto-body text-gray-400">
               Your trusted partner in navigating the complexities of trade,
@@ -65,24 +57,6 @@ const Footer: React.FC = () => {
                   >
                     <ArrowRight className="w-4 h-4 mr-2 transition-transform transform group-hover:translate-x-1" />
                     {link.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div className="space-y-6">
-            <h3 className="montserrat-semibold text-xl">Our Services</h3>
-            <ul className="space-y-4">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <a
-                    href={service.href}
-                    className="roboto-body text-gray-400 hover:text-white transition-colors flex items-center group"
-                  >
-                    <ArrowRight className="w-4 h-4 mr-2 transition-transform transform group-hover:translate-x-1" />
-                    {service.text}
                   </a>
                 </li>
               ))}

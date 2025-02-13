@@ -1,6 +1,7 @@
 import React from "react";
 import image1 from "../../assets/images/people/l-schmid.jpg";
 import image2 from "../../assets/images/people/s-perera.jpg";
+import TextButton from "../blocks/TextButton";
 
 const PartnersSection: React.FC = () => {
   const cards = [
@@ -22,7 +23,7 @@ const PartnersSection: React.FC = () => {
 
   return (
     <div className="w-full">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-20">
         <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-black-60 mb-16">
           The <span className="text-primary">Partners</span>
         </h1>
@@ -41,12 +42,7 @@ const PartnersSection: React.FC = () => {
               <p className="roboto-body text-black-60 mb-4">
                 {card.description}
               </p>
-              <a
-                href={card.link}
-                className="inline-flex items-center text-[#AAAAAA] montserrat-semibold text-xl underline hover:text-primary/80 transition-colors"
-              >
-                Learn More
-              </a>
+              <TextButton href={card.link} text="Learn More" />
             </div>
           ))}
         </div>

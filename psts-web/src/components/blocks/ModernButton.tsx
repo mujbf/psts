@@ -65,7 +65,7 @@ const ModernButton: React.FC<ModernButtonProps> = ({
       {/* Content wrapper */}
       <div className="relative flex items-center w-full justify-center">
         {/* Icon container - left position */}
-        <div className="absolute left-0 transition-all duration-300 ease-in-out transform translate-x-0 opacity-100 group-hover:translate-x-[150%] group-hover:opacity-0">
+        <div className="absolute left-0 transition-all duration-300 ease-in-out transform translate-y-0 opacity-100 group-hover:translate-x-[150%] group-hover:opacity-0">
           <ArrowRight
             size={20}
             className={variant === "white" ? "text-black" : "text-white"}

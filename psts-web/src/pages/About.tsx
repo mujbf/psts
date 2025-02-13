@@ -11,7 +11,7 @@ const About: React.FC = () => {
     <>
       <AboutHero />
       <Side2 />
-      <AboutDetails />
+      {/* <AboutDetails /> */}
       <Side3 />
       <PartnersSection />
       <Side4 />

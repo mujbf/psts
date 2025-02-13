@@ -1,4 +1,5 @@
 import React from "react";
+import TextButton from "../blocks/TextButton";
 
 const Col1: React.FC = () => {
   const cards = [
@@ -20,7 +21,7 @@ const Col1: React.FC = () => {
         <img
           src="/images/strategic.png"
           alt="Strategic"
-          className="w-auto h-40 mx-auto"
+          className="w-auto h-24 md:h-40 mx-auto"
         />
       ),
       title: "Strategic",
@@ -33,7 +34,7 @@ const Col1: React.FC = () => {
         <img
           src="/images/tailored.png"
           alt="Tailored"
-          className="w-auto h-40 mx-auto"
+          className="w-auto h-24 md:h-40 mx-auto"
         />
       ),
       title: "Tailored",
@@ -45,7 +46,7 @@ const Col1: React.FC = () => {
 
   return (
     <div className="w-full">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-20">
         <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-black-60 mb-16">
           Your IP. <br />
           <span className="text-primary">Your competitive advantage.</span>
@@ -55,7 +56,7 @@ const Col1: React.FC = () => {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="px-6 py-10 md:px-8 md:py-12 rounded-2xl border-2 border-[#DDDDDD] shadow-sm relative flex flex-col items-center"
+              className="px-6 py-10 md:px-8 md:py-12 rounded-2xl border-2 border-[#DDDDDD] shadow-sm relative flex md:flex-col items-center"
             >
               <div className="absolute inset-0 card-gradient -z-10" />
               <div className="relative z-10 flex flex-col items-center space-y-6">
@@ -66,12 +67,7 @@ const Col1: React.FC = () => {
                 <p className="roboto-body text-black-60 text-center">
                   {card.description}
                 </p>
-                <a
-                  href={card.link}
-                  className="inline-flex items-center text-[#AAAAAA] montserrat-semibold text-xl underline hover:text-primary/80 transition-colors"
-                >
-                  Learn More
-                </a>
+                <TextButton href={card.link} text="Learn More" />
               </div>
             </div>
           ))}
