@@ -42,7 +42,7 @@ const CustomButton = ({
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.6em 1.5em;
+            padding: 0.6em 1.1em;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: 600;

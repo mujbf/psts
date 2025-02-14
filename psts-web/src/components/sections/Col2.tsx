@@ -1,6 +1,6 @@
 import React from "react";
-import image1 from "../../assets/images/people/l-schmid.jpg";
-import image2 from "../../assets/images/people/s-perera.jpg";
+import image1 from "/images/people/schmid.png";
+import image2 from "/images/people/perera.png";
 import TextButton from "../blocks/TextButton";
 
 const PartnersSection: React.FC = () => {
@@ -34,7 +34,7 @@ const PartnersSection: React.FC = () => {
               <img
                 src={card.image}
                 alt={card.name}
-                className="w-full object-cover rounded-xl mb-6"
+                className="w-full object-cover rounded-xl mb-6 shadow-md"
               />
               <h3 className="montserrat-semibold text-3xl text-primary mb-4">
                 {card.name}

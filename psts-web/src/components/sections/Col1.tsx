@@ -58,7 +58,7 @@ const Col1: React.FC = () => {
               key={index}
               className="px-6 py-10 md:px-8 md:py-12 rounded-2xl border-2 border-[#DDDDDD] shadow-sm relative flex md:flex-col items-center"
             >
-              <div className="absolute inset-0 card-gradient -z-10" />
+              <div className="absolute inset-0 card-gradient -z-10 rounded-[12px]" />
               <div className="relative z-10 flex flex-col items-center space-y-6">
                 <div className="flex justify-center w-full">{card.image}</div>
                 <h3 className="montserrat-semibold text-2xl md:text-3xl text-primary text-center">

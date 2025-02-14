@@ -150,7 +150,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                 <h2 className="montserrat-semibold text-xl text-c-white">
                   {content[activeIndex].heading}
                 </h2>
-                <p className="roboto-body text-sm md:text-lg text-white-60">
+                <p className="roboto-normal text-sm md:text-[16px] leading-normal text-white-60">
                   {content[activeIndex].description}
                 </p>
               </div>

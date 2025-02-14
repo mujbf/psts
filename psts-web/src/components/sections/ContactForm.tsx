@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapIcon, PhoneCall, Mail } from "lucide-react";
+import { MapPin, PhoneCall, Mail } from "lucide-react";
 import CustomButton from "../blocks/CustomButton";
 
 const ContactForm: React.FC = () => {
@@ -42,7 +42,7 @@ const ContactForm: React.FC = () => {
             Contact Us
           </h2>
           <div className="flex items-center gap-4">
-            <MapIcon size={32} className="text-[#AAAAAA]" />
+            <MapPin size={32} className="text-[#AAAAAA]" />
             <p className="roboto-body text-black-60">
               15, Flower Road, Colombo.
             </p>
@@ -62,9 +62,6 @@ const ContactForm: React.FC = () => {
         <div className="flex-1 bg-white rounded-lg shadow-lg p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label htmlFor="name" className="block roboto-body text-black-60">
-                Name
-              </label>
               <input
                 id="name"
                 name="name"
@@ -72,18 +69,12 @@ const ContactForm: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-body text-black-60"
-                placeholder="Your name"
+                className="w-full p-4 border-2 border-[#C0C0C078] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-normal text-black-60"
+                placeholder="Your Name"
               />
             </div>
 
             <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="block roboto-body text-black-60"
-              >
-                Email
-              </label>
               <input
                 id="email"
                 name="email"
@@ -91,18 +82,12 @@ const ContactForm: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-body text-black-60"
-                placeholder="your.email@example.com"
+                className="w-full p-4 border-2 border-[#C0C0C078] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-normal text-black-60"
+                placeholder="Your Email"
               />
             </div>
 
             <div className="space-y-2">
-              <label
-                htmlFor="message"
-                className="block roboto-body text-black-60"
-              >
-                Message
-              </label>
               <textarea
                 id="message"
                 name="message"
@@ -110,8 +95,8 @@ const ContactForm: React.FC = () => {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-body text-black-60"
-                placeholder="Your message here..."
+                className="w-full p-4 border-2 border-[#C0C0C078] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-normal text-black-60"
+                placeholder="Message"
               />
             </div>
 

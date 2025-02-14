@@ -36,8 +36,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-lg z-10" id="main-navbar">
-      <div className="max-w-7xl mx-auto px-4 md:px-12">
+    <nav className="bg-white shadow-lg" id="main-navbar">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 rounded-b-[10px]">
         <div className="flex justify-between h-24">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
@@ -53,7 +53,9 @@ const Navbar = () => {
             <NavItem to="/services/consulting">Services</NavItem>
 
             {/* Contact Button */}
-            <CustomButton text="Contact" variant="black" />
+            <Link to="/contact">
+              <CustomButton text="Contact" variant="black" />
+            </Link>
           </div>
 
           {/* Mobile menu button */}
