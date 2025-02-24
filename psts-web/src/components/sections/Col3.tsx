@@ -65,15 +65,6 @@ const Col3: React.FC = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setPosition((prev) =>
-  //       prev === -(testimonials.length - 1) * 100 ? 0 : prev - 100
-  //     );
-  //   }, 5000);
-  //   return () => clearInterval(interval);
-  // }, [testimonials.length]);
-
   const renderStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -114,12 +105,18 @@ const Col3: React.FC = () => {
 
         <div className="relative overflow-hidden">
           <div
-            className="flex transition-transform duration-1000 ease-in-out  "
+            className="flex transition-transform duration-1000 ease-in-out"
             style={{ transform: `translateX(${position}%)` }}
           >
             {testimonials.map((testimonial, index) => (
               <div key={index} className="min-w-full md:min-w-[33.333%] p-4">
-                <div className="px-6 py-10 rounded-2xl border-2 border-[#FFB09A] shadow-sm bg-white flex flex-col items-center gap-8 ring-8 ring-[#FFE9E3]">
+                <div 
+                  className="px-6 py-10 rounded-2xl bg-white flex flex-col items-center gap-8"
+                  style={{
+                    border: '2px solid #FFEAE4',
+                    boxShadow: '0px 0px 20px -4px #FFC6B5'
+                  }}
+                >
                   <img
                     src={testimonial.imageUrl}
                     alt={testimonial.name}

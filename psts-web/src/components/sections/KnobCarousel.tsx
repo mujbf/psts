@@ -100,21 +100,19 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
             Z`;
   };
 
-  const getIconPosition = (index: number): { x: number; y: number } => {
-    const sectionAngle = 45; // Keep this the same as your section angle
+  const getIconPosition = (index: number): { x: number; y: number; labelX: number; labelY: number } => {
+    const sectionAngle = 45;
     const isMobile = window.innerWidth < 768;
-
-    // Use the same base angles as your sections
     const baseAngle = isMobile ? -165 : 110;
-
-    // Calculate angle for center of section
-    const angle =
-      ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
-    const radius = 150; // You can adjust this value to move icons closer/further from center
+    const angle = ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
+    const iconRadius = 150;
+    const labelRadius = 155; // Slightly larger radius for labels
 
     return {
-      x: radius * Math.cos(angle),
-      y: radius * Math.sin(angle),
+      x: iconRadius * Math.cos(angle),
+      y: iconRadius * Math.sin(angle),
+      labelX: labelRadius * Math.cos(angle),
+      labelY: labelRadius * Math.sin(angle),
     };
   };
 
@@ -158,8 +156,8 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
           </div>
         </div>
 
-        {/* Carousel Section - maintaining original positioning */}
-        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
+             {/* Modified Carousel Section */}
+             <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
           <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
             <svg
               viewBox="-200 -200 400 400"
@@ -175,7 +173,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
               />
               {content.map((item, index) => {
                 const isActive = activeIndex === index;
-                const iconPosition = getIconPosition(index);
+                const position = getIconPosition(index);
 
                 return (
                   <g
@@ -196,9 +194,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                       strokeWidth="0"
                       className="transition-colors duration-300"
                     />
+                    {/* Icon */}
                     <foreignObject
-                      x={iconPosition.x - 15}
-                      y={iconPosition.y - 15}
+                      x={position.x - 15}
+                      y={position.y - 28}
                       width="30"
                       height="30"
                       className="pointer-events-none"
@@ -210,6 +209,24 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                           color={isActive ? "white" : item.color}
                           strokeWidth={isActive ? 2.5 : 1.5}
                         />
+                      </div>
+                    </foreignObject>
+                    {/* Heading */}
+                    <foreignObject
+                      x={position.labelX - 54}
+                      y={position.labelY - 0}
+                      width="120"
+                      height="24"
+                      className="pointer-events-none"
+                    >
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span 
+                          className={`roboto-normal text-[8px] ${
+                            isActive ? "text-c-white roboto-body" : "text-black-80"
+                          }`}
+                        >
+                          {item.heading}
+                        </span>
                       </div>
                     </foreignObject>
                   </g>
