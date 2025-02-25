@@ -12,6 +12,7 @@ interface ContentItem {
   description: string;
   color: string;
   lightColor: string;
+  gradientId: string;
 }
 
 interface KnobCarouselProps {
@@ -24,15 +25,15 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  // ... content array and other state management remains the same ...
   const content: ContentItem[] = [
     {
       icon: Package,
       heading: "Innovative Solutions",
       description:
-        "Our Compliance Solutions ensure your business adheres to industry regulations while maintaining operational efficiency. With our expertise, we help you navigate complex compliance requirements, mitigate risks, and uphold your company’s credibility, allowing you to focus on sustainable growth.",
-      color: "rgba(187, 19, 11, 0.4)",
+        "Our Compliance Solutions ensure your business adheres to industry regulations while maintaining operational efficiency. With our expertise, we help you navigate complex compliance requirements, mitigate risks, and uphold your company's credibility, allowing you to focus on sustainable growth.",
+      color: "rgba(155, 27, 20, 0.4)",
       lightColor: "rgba(255, 255, 255, 0.1)",
+      gradientId: "gradientInnovative",
     },
     {
       icon: Binoculars,
@@ -41,6 +42,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
         "Our Trade Facilitation services streamline your import and export processes, reducing delays and ensuring compliance with international regulations. With our support, you can optimize logistics, enhance supply chain efficiency, and expand your global reach while maintaining a competitive edge.",
       color: "rgba(187, 19, 11, 0.4)",
       lightColor: "rgba(255, 255, 255, 0.1)",
+      gradientId: "gradientInnovative",
     },
     {
       icon: LockKeyholeOpen,
@@ -49,6 +51,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
         "Our Customs Advisory services provide expert guidance to help you navigate regulatory frameworks and optimize duty costs. With our in-depth knowledge, we assist in risk management, trade compliance, and strategic planning, allowing you to operate smoothly and efficiently in global markets.",
       color: "rgba(187, 19, 11, 0.4)",
       lightColor: "rgba(255, 255, 255, 0.1)",
+      gradientId: "gradientInnovative",
     },
   ];
 
@@ -64,12 +67,8 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     return () => clearInterval(timer);
   }, [rotationInterval, content.length]);
 
-  // ... calculateCarouselSection and getIconPosition functions remain the same ...
   const calculateCarouselSection = (index: number): string => {
-    // Each section is 1/8th of the circle (45 degrees)
     const sectionAngle = 45;
-    // Desktop: Position sections on the left side (-150 to -60 degrees)
-    // Mobile: Position sections on the top side (30 to 120 degrees)
     const isMobile = window.innerWidth < 768;
     const baseAngle = isMobile ? -160 : 110;
     const startAngle = baseAngle + index * sectionAngle;
@@ -81,13 +80,11 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     const radius = 200;
     const innerRadius = 100;
 
-    // Outer arc coordinates
     const startX = radius * Math.cos(startRadians);
     const startY = radius * Math.sin(startRadians);
     const endX = radius * Math.cos(endRadians);
     const endY = radius * Math.sin(endRadians);
 
-    // Inner arc coordinates
     const innerStartX = innerRadius * Math.cos(endRadians);
     const innerStartY = innerRadius * Math.sin(endRadians);
     const innerEndX = innerRadius * Math.cos(startRadians);
@@ -100,13 +97,16 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
             Z`;
   };
 
-  const getIconPosition = (index: number): { x: number; y: number; labelX: number; labelY: number } => {
+  const getIconPosition = (
+    index: number
+  ): { x: number; y: number; labelX: number; labelY: number } => {
     const sectionAngle = 45;
     const isMobile = window.innerWidth < 768;
     const baseAngle = isMobile ? -165 : 110;
-    const angle = ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
+    const angle =
+      ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
     const iconRadius = 150;
-    const labelRadius = 155; // Slightly larger radius for labels
+    const labelRadius = 155;
 
     return {
       x: iconRadius * Math.cos(angle),
@@ -116,10 +116,16 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     };
   };
 
-  // Handler for window resize
+  // Calculate the rotation angle for the inner wheel arrow
+  const calculateArrowRotation = () => {
+    const sectionAngle = 45;
+    const isMobile = window.innerWidth < 768;
+    const baseAngle = isMobile ? -165 : 110;
+    return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
+  };
+
   useEffect(() => {
     const handleResize = () => {
-      // Force a re-render to update section positions
       setActiveIndex((prev) => prev);
     };
 
@@ -130,7 +136,6 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   return (
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-start md:items-center">
-        {/* Content Section with max-width container */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="p-8 md:w-[60%] flex flex-col gap-16">
             <h1 className="montserrat-medium text-4xl md:text-7xl leading-tight gradient-text">
@@ -156,21 +161,89 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
           </div>
         </div>
 
-             {/* Modified Carousel Section */}
-             <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
+        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
           <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
             <svg
               viewBox="-200 -200 400 400"
               className="w-full h-full transform transition-transform duration-500"
             >
+              <defs>
+                {/* Gradients for sections */}
+                {content.map((item) => (
+                  <linearGradient
+                    key={item.gradientId}
+                    id={item.gradientId}
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor={item.color} />
+                    <stop
+                      offset="100%"
+                      stopColor={item.color.replace("0.4", "0.1")}
+                    />
+                  </linearGradient>
+                ))}
+                <radialGradient id="circleGradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="rgba(207, 61, 51, 1)" />
+                  <stop offset="100%" stopColor="rgba(196, 57, 47, 1)" />
+                </radialGradient>
+              </defs>
+              {/* Add the filter definition */}
+              <filter
+                id="dropShadow"
+                x="-20%"
+                y="-20%"
+                width="140%"
+                height="140%"
+              >
+                <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                <feOffset dx="2" dy="2" result="offsetblur" />
+                <feComponentTransfer>
+                  <feFuncA type="linear" slope="0.3" />{" "}
+                  {/* Controls shadow opacity */}
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode /> {/* This contains the shadow */}
+                  <feMergeNode in="SourceGraphic" />{" "}
+                  {/* This contains the circle */}
+                </feMerge>
+              </filter>
+              {/* Background circle */}
               <circle
                 cx="0"
                 cy="0"
                 r="200"
                 fill="#FFFFFF"
-                stroke="none"
+                stroke="#FF0000"
                 opacity="0.1"
               />
+
+              {/* Inner wheel */}
+              <g
+                className="transition-transform duration-300"
+                style={{ transform: `rotate(${calculateArrowRotation()}deg)` }}
+              >
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="100"
+                  fill="url(#circleGradient)"
+                  filter="url(#dropShadow)"
+                />
+                <circle
+                  cx="75"
+                  cy="0"
+                  r="8"
+                  fill="rgba(184, 47, 36, 1)"
+                  className="transition-colors duration-300"
+                />
+                {/* Central dot */}
+                <circle cx="0" cy="0" r="1" fill="rgba(187, 19, 11, 0.8)" />
+              </g>
+
+              {/* Carousel sections */}
               {content.map((item, index) => {
                 const isActive = activeIndex === index;
                 const position = getIconPosition(index);
@@ -189,12 +262,13 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   >
                     <path
                       d={calculateCarouselSection(index)}
-                      fill={isActive ? item.color : item.lightColor}
+                      fill={
+                        isActive ? `url(#${item.gradientId})` : item.lightColor
+                      }
                       stroke={item.color}
                       strokeWidth="0"
                       className="transition-colors duration-300"
                     />
-                    {/* Icon */}
                     <foreignObject
                       x={position.x - 15}
                       y={position.y - 28}
@@ -211,7 +285,6 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                         />
                       </div>
                     </foreignObject>
-                    {/* Heading */}
                     <foreignObject
                       x={position.labelX - 54}
                       y={position.labelY - 0}
@@ -220,9 +293,11 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                       className="pointer-events-none"
                     >
                       <div className="w-full h-full flex items-center justify-center">
-                        <span 
+                        <span
                           className={`roboto-normal text-[8px] ${
-                            isActive ? "text-c-white roboto-body" : "text-black-80"
+                            isActive
+                              ? "text-c-white roboto-body"
+                              : "text-black-80"
                           }`}
                         >
                           {item.heading}
