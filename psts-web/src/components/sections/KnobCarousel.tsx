@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  LockKeyholeOpen,
-  Binoculars,
-  Package,
-  type LucideIcon,
-} from "lucide-react";
 
 interface ContentItem {
-  icon: LucideIcon;
+  iconPath: string;
   heading: string;
   description: string;
   color: string;
@@ -27,29 +21,29 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   const content: ContentItem[] = [
     {
-      icon: Package,
-      heading: "Innovative Solutions",
+      iconPath: "/public/icons/carousel/icon1.svg",
+      heading: "Brand Protection",
       description:
         "Our Compliance Solutions ensure your business adheres to industry regulations while maintaining operational efficiency. With our expertise, we help you navigate complex compliance requirements, mitigate risks, and uphold your company's credibility, allowing you to focus on sustainable growth.",
-      color: "rgba(155, 27, 20, 0.4)",
+      color: "rgba(155, 27, 20, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
     {
-      icon: Binoculars,
-      heading: "Solid Foundation",
+      iconPath: "/public/icons/carousel/icon2.svg",
+      heading: "Trade Services",
       description:
         "Our Trade Facilitation services streamline your import and export processes, reducing delays and ensuring compliance with international regulations. With our support, you can optimize logistics, enhance supply chain efficiency, and expand your global reach while maintaining a competitive edge.",
-      color: "rgba(187, 19, 11, 0.4)",
+      color: "rgba(187, 19, 11, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
     {
-      icon: LockKeyholeOpen,
+      iconPath: "/public/icons/carousel/icon3.svg",
       heading: "Peak Performance",
       description:
         "Our Customs Advisory services provide expert guidance to help you navigate regulatory frameworks and optimize duty costs. With our in-depth knowledge, we assist in risk management, trade compliance, and strategic planning, allowing you to operate smoothly and efficiently in global markets.",
-      color: "rgba(187, 19, 11, 0.4)",
+      color: "rgba(187, 19, 11, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
@@ -68,9 +62,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   }, [rotationInterval, content.length]);
 
   const calculateCarouselSection = (index: number): string => {
-    const sectionAngle = 45;
+    const sectionAngle = 60; // Keeping the original 60 degree sections
     const isMobile = window.innerWidth < 768;
-    const baseAngle = isMobile ? -160 : 110;
+    // Adjusted base angles to shift slightly anticlockwise
+    const baseAngle = isMobile ? -180 : 90; // Shifted from -160 to -180 for mobile, from 110 to 90 for desktop
     const startAngle = baseAngle + index * sectionAngle;
     const endAngle = startAngle + sectionAngle;
 
@@ -100,9 +95,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   const getIconPosition = (
     index: number
   ): { x: number; y: number; labelX: number; labelY: number } => {
-    const sectionAngle = 45;
+    const sectionAngle = 60; // Keeping original 60 degree sections
     const isMobile = window.innerWidth < 768;
-    const baseAngle = isMobile ? -165 : 110;
+    // Adjusted base angles to shift slightly anticlockwise
+    const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
     const angle =
       ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
     const iconRadius = 150;
@@ -118,9 +114,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   // Calculate the rotation angle for the inner wheel arrow
   const calculateArrowRotation = () => {
-    const sectionAngle = 45;
+    const sectionAngle = 60; // Keeping original 60 degree sections
     const isMobile = window.innerWidth < 768;
-    const baseAngle = isMobile ? -165 : 110;
+    // Adjusted base angles to shift slightly anticlockwise
+    const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
 
@@ -132,6 +129,8 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const isMobile = window.innerWidth < 768;
 
   return (
     <div className="relative w-full h-full overflow-hidden">
@@ -164,26 +163,28 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
         <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
           <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
             <svg
-              viewBox="-200 -200 400 400"
+              viewBox="-225 -225 450 450"
               className="w-full h-full transform transition-transform duration-500"
             >
               <defs>
                 {/* Gradients for sections */}
-                {content.map((item) => (
-                  <linearGradient
+                {content.map((item, index) => (
+                  <radialGradient
                     key={item.gradientId}
                     id={item.gradientId}
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
+                    cx="0%"
+                    cy="0%"
+                    r="100%"
+                    fx="0%"
+                    fy="0%"
+                    gradientTransform={`rotate(${
+                      // Calculate angle based on item position
+                      ((isMobile ? -180 : 90) + index * 60 + 30) % 360
+                    })`}
                   >
-                    <stop offset="0%" stopColor={item.color} />
-                    <stop
-                      offset="100%"
-                      stopColor={item.color.replace("0.4", "0.1")}
-                    />
-                  </linearGradient>
+                    <stop offset="0%" stopColor="rgba(187, 19, 11, 0)" />
+                    <stop offset="100%" stopColor="rgba(187, 19, 11, 0.4)" />
+                  </radialGradient>
                 ))}
                 <radialGradient id="circleGradient" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stopColor="rgba(207, 61, 51, 1)" />
@@ -210,14 +211,45 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   {/* This contains the circle */}
                 </feMerge>
               </filter>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="10" />
+                <feOffset dx="5" dy="5" result="offsetblur" />
+                <feComponentTransfer>
+                  <feFuncA type="linear" slope="0.3" />
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter
+                id="whiteGlow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feFlood result="flood" floodColor="white" floodOpacity="0.8" />
+                <feComposite
+                  in="flood"
+                  result="mask"
+                  in2="SourceGraphic"
+                  operator="in"
+                />
+                <feGaussianBlur in="mask" result="blurred" stdDeviation="2" />
+                <feMerge>
+                  <feMergeNode in="blurred" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
               {/* Background circle */}
               <circle
                 cx="0"
                 cy="0"
                 r="200"
-                fill="#FFFFFF"
-                stroke="#FF0000"
-                opacity="0.1"
+                fill="#E8695D"
+                opacity="1"
+                filter="url(#shadow)"
               />
 
               {/* Inner wheel */}
@@ -263,7 +295,9 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                     <path
                       d={calculateCarouselSection(index)}
                       fill={
-                        isActive ? `url(#${item.gradientId})` : item.lightColor
+                        isActive
+                          ? `url(#${item.gradientId})`
+                          : "rgba(255, 255, 255, 0.05)"
                       }
                       stroke={item.color}
                       strokeWidth="0"
@@ -277,11 +311,13 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                       className="pointer-events-none"
                     >
                       <div className="w-full h-full flex items-center justify-center">
-                        <item.icon
-                          size={24}
-                          className="transition-all duration-300"
-                          color={isActive ? "white" : item.color}
-                          strokeWidth={isActive ? 2.5 : 1.5}
+                        <img
+                          src={item.iconPath}
+                          alt={item.heading}
+                          className={`w-6 h-6 transition-all duration-300 ${
+                            isActive ? "" : "opacity-50"
+                          }`}
+                          style={isActive ? { filter: "url(#whiteGlow)" } : {}}
                         />
                       </div>
                     </foreignObject>
