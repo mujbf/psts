@@ -21,7 +21,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   const content: ContentItem[] = [
     {
-      iconPath: "/public/icons/carousel/icon1.svg",
+      iconPath: "/icons/carousel/icon1.svg",
       heading: "Brand Protection",
       description:
         "Our Compliance Solutions ensure your business adheres to industry regulations while maintaining operational efficiency. With our expertise, we help you navigate complex compliance requirements, mitigate risks, and uphold your company's credibility, allowing you to focus on sustainable growth.",
@@ -30,7 +30,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
       gradientId: "gradientInnovative",
     },
     {
-      iconPath: "/public/icons/carousel/icon2.svg",
+      iconPath: "/icons/carousel/icon2.svg",
       heading: "Trade Services",
       description:
         "Our Trade Facilitation services streamline your import and export processes, reducing delays and ensuring compliance with international regulations. With our support, you can optimize logistics, enhance supply chain efficiency, and expand your global reach while maintaining a competitive edge.",
@@ -39,7 +39,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
       gradientId: "gradientInnovative",
     },
     {
-      iconPath: "/public/icons/carousel/icon3.svg",
+      iconPath: "/icons/carousel/icon3.svg",
       heading: "Peak Performance",
       description:
         "Our Customs Advisory services provide expert guidance to help you navigate regulatory frameworks and optimize duty costs. With our in-depth knowledge, we assist in risk management, trade compliance, and strategic planning, allowing you to operate smoothly and efficiently in global markets.",
@@ -163,7 +163,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
         <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
           <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
             <svg
-              viewBox="-225 -225 450 450"
+              viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 225 450"}
               className="w-full h-full transform transition-transform duration-500"
             >
               <defs>
@@ -190,6 +190,13 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   <stop offset="0%" stopColor="rgba(207, 61, 51, 1)" />
                   <stop offset="100%" stopColor="rgba(196, 57, 47, 1)" />
                 </radialGradient>
+                {/* Add a clipPath for restricting the view */}
+                <clipPath id="mobileClipPath">
+                  <rect x="-225" y="-225" width="450" height="225" />
+                </clipPath>
+                <clipPath id="desktopClipPath">
+                  <rect x="-225" y="-225" width="225" height="450" />
+                </clipPath>
               </defs>
               {/* Add the filter definition */}
               <filter
@@ -242,107 +249,119 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              {/* Background circle */}
-              <circle
-                cx="0"
-                cy="0"
-                r="200"
-                fill="#E8695D"
-                opacity="1"
-                filter="url(#shadow)"
-              />
 
-              {/* Inner wheel */}
+              {/* Main group with clipping applied */}
               <g
-                className="transition-transform duration-300"
-                style={{ transform: `rotate(${calculateArrowRotation()}deg)` }}
+                clipPath={
+                  isMobile ? "url(#mobileClipPath)" : "url(#desktopClipPath)"
+                }
               >
+                {/* Background circle */}
                 <circle
                   cx="0"
                   cy="0"
-                  r="100"
-                  fill="url(#circleGradient)"
-                  filter="url(#dropShadow)"
+                  r="200"
+                  fill="#E8695D"
+                  opacity="1"
+                  filter="url(#shadow)"
                 />
-                <circle
-                  cx="75"
-                  cy="0"
-                  r="8"
-                  fill="rgba(184, 47, 36, 1)"
-                  className="transition-colors duration-300"
-                />
-                {/* Central dot */}
-                <circle cx="0" cy="0" r="1" fill="rgba(187, 19, 11, 0.8)" />
+
+                {/* Inner wheel */}
+                <g
+                  className="transition-transform duration-300"
+                  style={{
+                    transform: `rotate(${calculateArrowRotation()}deg)`,
+                  }}
+                >
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="100"
+                    fill="url(#circleGradient)"
+                    filter="url(#dropShadow)"
+                  />
+                  <circle
+                    cx="75"
+                    cy="0"
+                    r="8"
+                    fill="rgba(184, 47, 36, 1)"
+                    className="transition-colors duration-300"
+                  />
+                  {/* Central dot */}
+                  <circle cx="0" cy="0" r="1" fill="rgba(187, 19, 11, 0.8)" />
+                </g>
+
+                {/* Carousel sections */}
+                {content.map((item, index) => {
+                  const isActive = activeIndex === index;
+                  const position = getIconPosition(index);
+
+                  return (
+                    <g
+                      key={index}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setIsAnimating(true);
+                        setTimeout(() => {
+                          setActiveIndex(index);
+                          setIsAnimating(false);
+                        }, 300);
+                      }}
+                    >
+                      <path
+                        d={calculateCarouselSection(index)}
+                        fill={
+                          isActive
+                            ? `url(#${item.gradientId})`
+                            : "rgba(255, 255, 255, 0.05)"
+                        }
+                        stroke={item.color}
+                        strokeWidth="0"
+                        className="transition-colors duration-300"
+                      />
+                      <foreignObject
+                        x={position.x - 15}
+                        y={position.y - 28}
+                        width="30"
+                        height="30"
+                        className="pointer-events-none"
+                      >
+                        <div className="w-full h-full flex items-center justify-center">
+                          <img
+                            src={item.iconPath}
+                            alt={item.heading}
+                            className={`w-6 h-6 transition-all duration-300 ${
+                              isActive ? "" : "opacity-50"
+                            }`}
+                            style={
+                              isActive ? { filter: "url(#whiteGlow)" } : {}
+                            }
+                          />
+                        </div>
+                      </foreignObject>
+                      <foreignObject
+                        x={position.labelX - 54}
+                        y={position.labelY - 0}
+                        width="120"
+                        height="24"
+                        className="pointer-events-none"
+                      >
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span
+                            className={`roboto-normal text-[8px] ${
+                              isActive
+                                ? "text-c-white roboto-body"
+                                : "text-black-80"
+                            }`}
+                          >
+                            {item.heading}
+                          </span>
+                        </div>
+                      </foreignObject>
+                    </g>
+                  );
+                })}
               </g>
-
-              {/* Carousel sections */}
-              {content.map((item, index) => {
-                const isActive = activeIndex === index;
-                const position = getIconPosition(index);
-
-                return (
-                  <g
-                    key={index}
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setIsAnimating(true);
-                      setTimeout(() => {
-                        setActiveIndex(index);
-                        setIsAnimating(false);
-                      }, 300);
-                    }}
-                  >
-                    <path
-                      d={calculateCarouselSection(index)}
-                      fill={
-                        isActive
-                          ? `url(#${item.gradientId})`
-                          : "rgba(255, 255, 255, 0.05)"
-                      }
-                      stroke={item.color}
-                      strokeWidth="0"
-                      className="transition-colors duration-300"
-                    />
-                    <foreignObject
-                      x={position.x - 15}
-                      y={position.y - 28}
-                      width="30"
-                      height="30"
-                      className="pointer-events-none"
-                    >
-                      <div className="w-full h-full flex items-center justify-center">
-                        <img
-                          src={item.iconPath}
-                          alt={item.heading}
-                          className={`w-6 h-6 transition-all duration-300 ${
-                            isActive ? "" : "opacity-50"
-                          }`}
-                          style={isActive ? { filter: "url(#whiteGlow)" } : {}}
-                        />
-                      </div>
-                    </foreignObject>
-                    <foreignObject
-                      x={position.labelX - 54}
-                      y={position.labelY - 0}
-                      width="120"
-                      height="24"
-                      className="pointer-events-none"
-                    >
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span
-                          className={`roboto-normal text-[8px] ${
-                            isActive
-                              ? "text-c-white roboto-body"
-                              : "text-black-80"
-                          }`}
-                        >
-                          {item.heading}
-                        </span>
-                      </div>
-                    </foreignObject>
-                  </g>
-                );
-              })}
             </svg>
           </div>
         </div>
