@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 
 interface ContentItem {
   iconPath: string;
-  heading: string;
-  description: string;
+  title: string;
+  paragraphs: string[];
+  bulletPoints: string[];
   color: string;
   lightColor: string;
   gradientId: string;
 }
 
-interface KnobCarouselProps {
+interface LeftKnobCarouselProps {
   rotationInterval?: number;
 }
 
-const KnobCarousel: React.FC<KnobCarouselProps> = ({
+const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
   rotationInterval = 10000,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -22,27 +23,51 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   const content: ContentItem[] = [
     {
       iconPath: "/icons/carousel/icon1.svg",
-      heading: "Brand Protection",
-      description:
-        "Our Compliance Solutions ensure your business adheres to industry regulations while maintaining operational efficiency. With our expertise, we help you navigate complex compliance requirements, mitigate risks, and uphold your company's credibility, allowing you to focus on sustainable growth.",
+      title: "Brand Protection",
+      paragraphs: [
+        "Our comprehensive Brand Protection Solutions safeguard your intellectual property and reputation in global markets.",
+        "We utilize advanced monitoring and enforcement strategies to detect and address counterfeit products, unauthorized distribution, and trademark infringements.",
+      ],
+      bulletPoints: [
+        "24/7 online monitoring across marketplaces",
+        "Custom enforcement strategies",
+        "Timely takedown of infringing listings",
+        "Detailed reporting and analytics",
+      ],
       color: "rgba(155, 27, 20, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
     {
       iconPath: "/icons/carousel/icon2.svg",
-      heading: "Trade Services",
-      description:
-        "Our Trade Facilitation services streamline your import and export processes, reducing delays and ensuring compliance with international regulations. With our support, you can optimize logistics, enhance supply chain efficiency, and expand your global reach while maintaining a competitive edge.",
+      title: "Trade Services",
+      paragraphs: [
+        "Our Trade Facilitation services streamline your import and export processes, reducing delays and ensuring compliance with international regulations.",
+        "With our support, you can optimize logistics, enhance supply chain efficiency, and expand your global reach while maintaining a competitive edge.",
+      ],
+      bulletPoints: [
+        "Customs documentation preparation",
+        "Duty optimization strategies",
+        "Import/export compliance",
+        "Supply chain risk assessment",
+      ],
       color: "rgba(187, 19, 11, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
     {
       iconPath: "/icons/carousel/icon3.svg",
-      heading: "Compliance Audits",
-      description:
-        "Our Customs Advisory services provide expert guidance to help you navigate regulatory frameworks and optimize duty costs. With our in-depth knowledge, we assist in risk management, trade compliance, and strategic planning, allowing you to operate smoothly and efficiently in global markets.",
+      title: "Compliance Audits",
+      paragraphs: [
+        "Our Compliance Audit services provide a comprehensive evaluation of your trade operations to identify risks and opportunities for improvement.",
+        "Our expert team conducts thorough assessments to ensure your business meets all regulatory requirements while optimizing processes.",
+      ],
+      bulletPoints: [
+        "Risk-based compliance assessments",
+        "Gap analysis and remediation planning",
+        "Trade process optimization",
+        "Staff training and development",
+      ],
       color: "rgba(187, 19, 11, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
@@ -64,8 +89,8 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   const calculateCarouselSection = (index: number): string => {
     const sectionAngle = 60; // Keeping the original 60 degree sections
     const isMobile = window.innerWidth < 768;
-    // Adjusted base angles to shift slightly anticlockwise
-    const baseAngle = isMobile ? -180 : 90; // Shifted from -160 to -180 for mobile, from 110 to 90 for desktop
+    // Adjusted base angles for half-circle positioning
+    const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
     const startAngle = baseAngle + index * sectionAngle;
     const endAngle = startAngle + sectionAngle;
 
@@ -95,10 +120,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   const getIconPosition = (
     index: number
   ): { x: number; y: number; labelX: number; labelY: number } => {
-    const sectionAngle = 60; // Keeping original 60 degree sections
+    const sectionAngle = 60;
     const isMobile = window.innerWidth < 768;
-    // Adjusted base angles to shift slightly anticlockwise
-    const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
+    // Adjusted base angles for half-circle positioning
+    const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
     const angle =
       ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
     const iconRadius = 150;
@@ -114,10 +139,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   // Calculate the rotation angle for the inner wheel arrow
   const calculateArrowRotation = () => {
-    const sectionAngle = 60; // Keeping original 60 degree sections
+    const sectionAngle = 60;
     const isMobile = window.innerWidth < 768;
-    // Adjusted base angles to shift slightly anticlockwise
-    const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
+    // Adjusted base angles for half-circle positioning
+    const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
 
@@ -135,35 +160,11 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   return (
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-start md:items-center">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="p-8 md:w-[80%] flex flex-col gap-16">
-            <h1 className="montserrat-medium text-4xl md:text-7xl leading-tight gradient-text">
-              Your Trusted Partner in Trade, Customs, and Brand Protection
-              Solutions
-            </h1>
-            <div
-              className={`transition-all duration-500 transform ${
-                isAnimating
-                  ? "opacity-0 -translate-y-4"
-                  : "opacity-100 translate-y-0"
-              }`}
-            >
-              <div className="flex flex-col gap-4">
-                <h2 className="montserrat-semibold text-xl text-c-white">
-                  {content[activeIndex].heading}
-                </h2>
-                <p className="roboto-normal text-sm md:text-[16px] leading-normal text-white-60">
-                  {content[activeIndex].description}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
-          <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
+        {/* Fixed positioning for proper centering */}
+        <div className="absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-[-50%] bottom-[-150px] left-1/2 -translate-x-1/2 md:bottom-auto">
+          <div className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
             <svg
-              viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 225 450"}
+              viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 450 450"}
               className="w-full h-full transform transition-transform duration-500"
             >
               <defs>
@@ -179,7 +180,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                     fy="0%"
                     gradientTransform={`rotate(${
                       // Calculate angle based on item position
-                      ((isMobile ? -180 : 90) + index * 60 + 30) % 360
+                      ((isMobile ? 0 : 0) + index * 60 + 30) % 360
                     })`}
                   >
                     <stop offset="0%" stopColor="rgba(187, 19, 11, 0)" />
@@ -190,12 +191,12 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   <stop offset="0%" stopColor="rgba(207, 61, 51, 1)" />
                   <stop offset="100%" stopColor="rgba(196, 57, 47, 1)" />
                 </radialGradient>
-                {/* Add a clipPath for restricting the view */}
+                {/* Add a clipPath for restricting the view to half circle */}
                 <clipPath id="mobileClipPath">
-                  <rect x="-225" y="-225" width="450" height="225" />
+                  <path d="M 0,-225 A 225,225 0 0,1 0,225 L 0,0 Z" />
                 </clipPath>
                 <clipPath id="desktopClipPath">
-                  <rect x="-225" y="-225" width="225" height="450" />
+                  <path d="M 0,-225 A 225,225 0 0,1 0,225 L 0,0 Z" />
                 </clipPath>
               </defs>
               {/* Add the filter definition */}
@@ -329,7 +330,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                         <div className="w-full h-full flex items-center justify-center">
                           <img
                             src={item.iconPath}
-                            alt={item.heading}
+                            alt={item.title}
                             className={`w-6 h-6 transition-all duration-300 ${
                               isActive ? "" : "opacity-50"
                             }`}
@@ -352,7 +353,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                               isActive ? "text-c-white" : "text-white-60"
                             }`}
                           >
-                            {item.heading}
+                            {item.title}
                           </span>
                         </div>
                       </foreignObject>
@@ -363,9 +364,49 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
             </svg>
           </div>
         </div>
+
+        <div className="max-w-7xl mx-auto px-4 md:pl-64 lg:pl-80 w-full md:pb-0 pb-72">
+          <div className="p-8 md:p-12 w-full md:w-[80%] flex flex-col gap-6">
+            <div
+              className={`transition-all duration-500 transform ${
+                isAnimating
+                  ? "opacity-0 -translate-y-4"
+                  : "opacity-100 translate-y-0"
+              }`}
+            >
+              <div className="flex flex-col gap-6">
+                <h2 className="montserrat-semibold text-2xl md:text-3xl text-c-white">
+                  {content[activeIndex].title}
+                </h2>
+
+                {content[activeIndex].paragraphs.map((paragraph, idx) => (
+                  <p
+                    key={idx}
+                    className="roboto-normal text-sm md:text-base leading-relaxed text-white-60"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+
+                <div className="mt-2">
+                  <ul className="space-y-2">
+                    {content[activeIndex].bulletPoints.map((point, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <span className="text-c-white mr-2">•</span>
+                        <span className="roboto-normal text-sm md:text-base text-white-60">
+                          {point}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default KnobCarousel;
+export default LeftKnobCarousel;
