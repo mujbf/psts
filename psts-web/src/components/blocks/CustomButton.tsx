@@ -1,14 +1,16 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type ButtonVariant = "white" | "black";
 
 interface CustomButtonProps {
   text: string;
   variant?: ButtonVariant;
-  onClick?: () => void; // Changed to match the expected type
+  onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  route?: string; // New prop for routing
 }
 
 const CustomButton = ({
@@ -17,13 +19,24 @@ const CustomButton = ({
   onClick,
   className = "",
   disabled = false,
+  route, // Added route prop
 }: CustomButtonProps) => {
+  const navigate = useNavigate(); // Hook for programmatic navigation
+
   const buttonClass = `custom-button ${variant} ${className} ${
     disabled ? "disabled" : ""
   }`;
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent default button behavior
+
+    // If route is provided, navigate to the route
+    if (route) {
+      navigate(route);
+      return;
+    }
+
+    // If onClick is provided, call it
     if (onClick) {
       onClick();
     }
@@ -54,6 +67,7 @@ const CustomButton = ({
             min-width: 8em;
             font-family: "Montserrat", serif;
             white-space: nowrap;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
           }
 
           .custom-button.disabled {
@@ -78,11 +92,13 @@ const CustomButton = ({
           .custom-button.black:hover:not(.disabled) {
             background: #000;
             color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
           }
 
           .custom-button.white:hover:not(.disabled) {
             background: #fff;
             color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
           }
 
           .button-content {

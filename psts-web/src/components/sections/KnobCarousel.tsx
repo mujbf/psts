@@ -349,7 +349,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                         <div className="w-full h-full flex items-center justify-center">
                           <span
                             className={`roboto-normal text-[9px] ${
-                              isActive ? "text-c-white" : "text-white-60"
+                              isActive ? "text-c-white" : "text-white-50"
                             }`}
                           >
                             {item.heading}

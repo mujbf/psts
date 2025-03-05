@@ -1,5 +1,6 @@
 import React from "react";
 import TextButton from "../blocks/TextButton";
+import "../../assets/css/titleInnerShadow.css";
 
 const Col1: React.FC = () => {
   const cards = [
@@ -61,7 +62,10 @@ const Col1: React.FC = () => {
               <div className="absolute inset-0 card-gradient -z-10 rounded-[12px]" />
               <div className="relative z-10 flex flex-col items-center space-y-6">
                 <div className="flex justify-center w-full">{card.image}</div>
-                <h3 className="montserrat-semibold text-2xl md:text-3xl text-primary text-center">
+                <h3
+                  className="montserrat-semibold text-2xl md:text-3xl text-primary text-center title-inner-shadow"
+                  data-text={card.title}
+                >
                   {card.title}
                 </h3>
                 <p className="roboto-body text-black-60 text-center">

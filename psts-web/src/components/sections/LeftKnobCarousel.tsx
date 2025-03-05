@@ -341,7 +341,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                         </div>
                       </foreignObject>
                       <foreignObject
-                        x={position.labelX - 54}
+                        x={position.labelX - 66}
                         y={position.labelY - 0}
                         width="120"
                         height="24"
@@ -350,7 +350,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                         <div className="w-full h-full flex items-center justify-center">
                           <span
                             className={`roboto-normal text-[9px] ${
-                              isActive ? "text-c-white" : "text-white-60"
+                              isActive ? "text-c-white" : "text-white-50"
                             }`}
                           >
                             {item.title}

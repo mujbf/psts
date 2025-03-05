@@ -16,7 +16,7 @@ const NavItem = ({ to, children }: NavItemProps) => {
   return (
     <Link
       to={to}
-      className={`roboto-body px-3 py-2 text-black-80 hover:text-primary ${
+      className={`roboto-body px-3 py-2 text-black-60 hover:text-primary ${
         isActive ? "text-orange-600" : ""
       }`}
     >
@@ -54,7 +54,7 @@ const Navbar = () => {
 
             {/* Contact Button */}
             <Link to="/contact">
-              <CustomButton text="Contact" variant="black" />
+              <CustomButton text="Contact" variant="black" route="/contact" />
             </Link>
           </div>
 

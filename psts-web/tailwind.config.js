@@ -13,7 +13,8 @@ module.exports = {
       "primary" : "#FC430F",
       "c-white" : "#FFFFFC",
       "white-60" : "#FBDCD4",
-      
+      "neutral-grey" : "#AAAAAA",
+      "white-50" : "#FFFFFF80",
       },
     },
   plugins: [],
