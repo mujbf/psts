@@ -44,17 +44,17 @@ const ContactForm: React.FC = () => {
           <div className="flex items-center gap-4">
             <MapPin size={32} className="text-[#AAAAAA]" />
             <p className="roboto-body text-black-60">
-              15, Flower Road, Colombo.
+              10, Anson Road, #22-02, International Plaza, Singapore 079903
             </p>
           </div>
-          <div className="flex items-center gap-4">
+          {/* <div className="flex items-center gap-4">
             <PhoneCall size={32} className="text-[#AAAAAA]" />
             <p className="roboto-body text-black-60">+94 11 222 3355</p>
-          </div>
+          </div> */}
           <div className="flex items-center gap-4">
             <Mail size={32} className="text-[#AAAAAA]" />
             <p className="roboto-body text-black-60">
-              info@pereraandschmid.com
+              contact@pereraschmid.com
             </p>
           </div>
         </div>

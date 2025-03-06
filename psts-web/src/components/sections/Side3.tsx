@@ -11,11 +11,9 @@ const Side3: React.FC = () => {
               Our Vision
             </h1>
             <p className="roboto-body text-black-60 ">
-              Navigating the complexities of trade and customs regulations can
-              be daunting. Our expert consultancy services ensure your
-              operations are compliant, efficient, and tailored to your specific
-              needs. With our support, you can focus on growing your business
-              while we handle the intricacies of compliance.
+              To be the premier trade services firm in the APAC region, setting
+              the gold standard for brand protection, trade compliance, and
+              sustainable business practices in global commerce.
             </p>
           </div>
 
@@ -24,11 +22,12 @@ const Side3: React.FC = () => {
               Our Mission
             </h1>
             <p className="roboto-body text-black-60 text-justify">
-              Navigating the complexities of trade and customs regulations can
-              be daunting. Our expert consultancy services ensure your
-              operations are compliant, efficient, and tailored to your specific
-              needs. With our support, you can focus on growing your business
-              while we handle the intricacies of compliance.
+              To empower businesses with expert guidance and innovative
+              solutions that ensure trade compliance, protect brand integrity,
+              and build sustainable supply chains. Through our deep regional
+              expertise and global perspective, we help our clients navigate
+              complex regulatory landscapes while fostering ethical business
+              practices across the APAC region.
             </p>
           </div>
         </div>

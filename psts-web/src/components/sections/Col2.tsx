@@ -10,14 +10,14 @@ const PartnersSection: React.FC = () => {
       name: "Leigh A. Schmid",
       description:
         "Former Canadian Customs officer turned KPMG Partner, later SVP at L Brands & VS&Co. Expert in global trade compliance, customs & brand protection. MBA from McMaster. Served on COAC & WCO advisory boards.",
-      link: "/schmid",
+      link: "/about#partners",
     },
     {
       image: image2,
       name: "Sudath Perera",
       description:
         "Leading Sri Lankan IP lawyer since 1991, founder of Sudath Perera Associates. Known as Sri Lanka’s counterfeit buster, and pioneered brand protection in Sri Lanka. Member of multiple international legal bodies & corporate boards.",
-      link: "/perera",
+      link: "/about#partners",
     },
   ];
 

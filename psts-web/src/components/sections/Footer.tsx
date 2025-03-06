@@ -9,19 +9,19 @@ const Footer: React.FC = () => {
   ];
 
   const contactInfo = [
-    {
-      icon: <Phone className="w-5 h-5" />,
-      text: "+1 234 567 890",
-      href: "tel:+1234567890",
-    },
+    // {
+    //   icon: <Phone className="w-5 h-5" />,
+    //   text: "+1 234 567 890",
+    //   href: "tel:+1234567890",
+    // },
     {
       icon: <Mail className="w-5 h-5" />,
-      text: "contact@pereraandschmid.com",
-      href: "mailto:contact@pereraandschmid.com",
+      text: "contact@pereraschmid.com",
+      href: "mailto:contact@pereraschmid.com",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
-      text: "123 Business Street, City, Country",
+      text: "10, Anson Road, #22-02, International Plaza, Singapore 079903",
       href: "https://maps.google.com",
     },
   ];

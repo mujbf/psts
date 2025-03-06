@@ -40,7 +40,7 @@ const Col1: React.FC = () => {
       ),
       title: "Tailored",
       description:
-        "Global, regional, or local, however you compete and vary your product strategy, we will customize our services to suit your business model and brand aspirations.",
+        "Global, regional, or local, however you compete and vary your product strategy, we will customize our services to suit your business model.",
       link: "/tailored",
     },
   ];
