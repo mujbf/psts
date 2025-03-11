@@ -6,7 +6,7 @@ const Side3: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-12 py-20">
         {/* Text Content - Left Side */}
         <div className="flex flex-col md:flex-row gap-16 md:gap-16">
-          <div className="flex flex-col gap-5 w-1/2">
+          <div className="flex flex-col gap-5 w-full md:w-1/2">
             <h1 className="montserrat-semibold text-primary text-2xl md:text-3xl leading-tight">
               Our Vision
             </h1>
@@ -17,7 +17,7 @@ const Side3: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-5 w-1/2">
+          <div className="flex flex-col gap-5 w-full md:w-1/2">
             <h1 className="montserrat-semibold text-primary text-2xl md:text-3xl leading-tight">
               Our Mission
             </h1>

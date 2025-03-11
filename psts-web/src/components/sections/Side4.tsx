@@ -6,13 +6,13 @@ import CustomButton from "../blocks/CustomButton";
 const Side4: React.FC = () => {
   return (
     <div className="w-full primary-gradient">
-      <div className="max-w-7xl mx-auto px-4 py-20 flex gap-20">
-        <div className="flex flex-col gap-12 md:gap-40 w-1/2">
+      <div className="max-w-7xl mx-auto px-4 py-20 flex flex-col md:flex-row gap-8 md:gap-20">
+        <div className="flex flex-col gap-12 md:gap-40 w-full md:w-1/2">
           <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-c-white opacity-80">
             Stay up to date on the latest news
           </h1>
         </div>
-        <div className="w-1/2 flex flex-col gap-16">
+        <div className="w-full md:w-1/2 flex flex-col gap-8 md:gap-16">
           <p className="roboto-body text-lg text-c-white opacity-80">
             Our expertise has helped businesses navigate complex trade
             regulations, ensuring compliance and efficiency. With a proven track

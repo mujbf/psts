@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, MessageCircle, ArrowRight } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import logoImg from "../../assets/logo.svg";
 import CustomButton from "../blocks/CustomButton";
 
@@ -27,13 +27,6 @@ const NavItem = ({ to, children }: NavItemProps) => {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
-
-  const services = [
-    { name: "Consulting", to: "/services/consulting" },
-    { name: "Development", to: "/services/development" },
-    { name: "Design", to: "/services/design" },
-  ];
 
   return (
     <nav className="bg-white shadow-lg" id="main-navbar">
@@ -42,7 +35,11 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/">
-              <img src={logoImg} alt="Company Logo" />
+              <img
+                src={logoImg}
+                alt="Company Logo"
+                className="w-[80%] md:w-full"
+              />
             </Link>
           </div>
 
@@ -92,34 +89,13 @@ const Navbar = () => {
             >
               About
             </Link>
-
-            {/* Mobile Services Dropdown */}
-            <div>
-              <button
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50 flex items-center justify-between"
-              >
-                Services
-                <ChevronDown className="h-4 w-4" />
-              </button>
-              {isServicesOpen && (
-                <div className="pl-4">
-                  {services.map((service) => (
-                    <Link
-                      key={service.name}
-                      to={service.to}
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setIsServicesOpen(false);
-                      }}
-                    >
-                      {service.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Link
+              to="/services/consulting"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
+              onClick={() => setIsOpen(false)}
+            >
+              Services
+            </Link>
 
             {/* Mobile Contact Button */}
             <Link
