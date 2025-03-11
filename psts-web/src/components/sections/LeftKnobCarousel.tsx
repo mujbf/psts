@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 interface ContentItem {
   iconPath: string;
   title: string;
-  paragraphs: string[];
-  bulletPoints: string[];
+  htmlContent: React.ReactNode;
   color: string;
   lightColor: string;
   gradientId: string;
@@ -22,52 +21,206 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
 
   const content: ContentItem[] = [
     {
-      iconPath: "/icons/carousel/icon1.svg",
-      title: "Brand Protection",
-      paragraphs: [
-        "Our comprehensive Brand Protection Solutions safeguard your intellectual property and reputation in global markets.",
-        "We utilize advanced monitoring and enforcement strategies to detect and address counterfeit products, unauthorized distribution, and trademark infringements.",
-      ],
-      bulletPoints: [
-        "24/7 online monitoring across marketplaces",
-        "Custom enforcement strategies",
-        "Timely takedown of infringing listings",
-        "Detailed reporting and analytics",
-      ],
-      color: "rgba(155, 27, 20, 0.1)",
+      iconPath: "/icons/carousel/icon2.svg",
+      title: "Trade Services",
+      htmlContent: (
+        <div className="flex flex-col gap-4">
+          <p className="roboto-normal text-sm md:text-base leading-relaxed text-white-60">
+            We help clients streamline their trade operations, meet
+            international regulatory requirements, and mitigate risks specific
+            to their supply chains.
+          </p>
+          <div>
+            <h3 className="roboto-normal text-sm md:text-base font-semibold text-c-white mb-2">
+              Our Expertise Includes:
+            </h3>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Tariff Classification:</strong> Ensuring accurate
+                  classification of goods to calculate duties and avoid
+                  penalties.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Rules of Origin:</strong> Guiding businesses in
+                  determining product origins to qualify for preferential
+                  tariffs under trade agreements.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Customs Valuation:</strong> Assisting with product
+                  value appraisals to comply with Customs regulations.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Risk Mitigation in Supply Chains:</strong>
+                  <ul className="ml-6 mt-2 space-y-2">
+                    <li className="flex items-start">
+                      <span className="text-c-white mr-2">•</span>
+                      <span className="roboto-normal text-sm md:text-base text-white-60">
+                        Developing sourcing policies to address risks such as
+                        forced labor and trade sanctions.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-c-white mr-2">•</span>
+                      <span className="roboto-normal text-sm md:text-base text-white-60">
+                        Identifying low-risk suppliers, especially for raw
+                        materials like cotton and polyester.
+                      </span>
+                    </li>
+                  </ul>
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Regulatory Compliance Support:</strong>
+                  <ul className="ml-6 mt-2 space-y-2">
+                    <li className="flex items-start">
+                      <span className="text-c-white mr-2">•</span>
+                      <span className="roboto-normal text-sm md:text-base text-white-60">
+                        Drafting policies and communications to navigate complex
+                        regulations.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-c-white mr-2">•</span>
+                      <span className="roboto-normal text-sm md:text-base text-white-60">
+                        Advising on compliance with legislation targeting forced
+                        labor and other highly regulated and high risk trade
+                        practices.
+                      </span>
+                    </li>
+                  </ul>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ),
+      color: "rgba(187, 19, 11, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
     {
-      iconPath: "/icons/carousel/icon2.svg",
-      title: "Trade Services",
-      paragraphs: [
-        "Our Trade Facilitation services streamline your import and export processes, reducing delays and ensuring compliance with international regulations.",
-        "With our support, you can optimize logistics, enhance supply chain efficiency, and expand your global reach while maintaining a competitive edge.",
-      ],
-      bulletPoints: [
-        "Customs documentation preparation",
-        "Duty optimization strategies",
-        "Import/export compliance",
-        "Supply chain risk assessment",
-      ],
-      color: "rgba(187, 19, 11, 0.1)",
+      iconPath: "/icons/carousel/icon1.svg",
+      title: "Brand Protection",
+      htmlContent: (
+        <div className="flex flex-col gap-4">
+          <p className="roboto-normal text-sm md:text-base leading-relaxed text-white-60">
+            We help safeguard your brand against counterfeit products,
+            unauthorized sales, and intellectual property violations.
+          </p>
+          <div>
+            <h3 className="roboto-normal text-sm md:text-base font-semibold text-c-white mb-2">
+              Our Services Include:
+            </h3>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Online Monitoring:</strong> Detecting counterfeit
+                  goods and IP infringements across online platforms.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Investigations:</strong> Tracing the sources of
+                  counterfeit and grey market products and gathering evidence to
+                  support legal action.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Customs Recordation & Seizures:</strong> Partnering
+                  with Customs agencies to record trademarks and prevent
+                  counterfeit goods at borders.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Law Enforcement & Customs Training:</strong> Awareness
+                  and identification training for enforcement authorities to
+                  become force multipliers for brand protection.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>IPR Enforcement Support:</strong> Collecting evidence
+                  to support civil and criminal actions against IP infringers.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ),
+      color: "rgba(155, 27, 20, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
     },
     {
       iconPath: "/icons/carousel/icon3.svg",
       title: "Compliance Audits",
-      paragraphs: [
-        "Our Compliance Audit services provide a comprehensive evaluation of your trade operations to identify risks and opportunities for improvement.",
-        "Our expert team conducts thorough assessments to ensure your business meets all regulatory requirements while optimizing processes.",
-      ],
-      bulletPoints: [
-        "Risk-based compliance assessments",
-        "Gap analysis and remediation planning",
-        "Trade process optimization",
-        "Staff training and development",
-      ],
+      htmlContent: (
+        <div className="flex flex-col gap-4">
+          <p className="roboto-normal text-sm md:text-base leading-relaxed text-white-60">
+            We conduct comprehensive audits to ensure compliance at every stage
+            of your supply chain while mitigating reputational and operational
+            risks.
+          </p>
+          <div>
+            <h3 className="roboto-normal text-sm md:text-base font-semibold text-c-white mb-2">
+              Key Areas of Focus:
+            </h3>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Brand Protection Audits:</strong> Verifying adherence
+                  to Brand Codes of Conduct and preventing counterfeit
+                  activities at manufacturing facilities.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Trade Compliance Audits:</strong> Ensuring factories
+                  comply with tariffs, trade laws, and Customs requirements.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>ESG Compliance Audits:</strong> Evaluating worker
+                  safety, ethical labor practices, and environmental
+                  sustainability to meet social compliance standards.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-c-white mr-2">•</span>
+                <span className="roboto-normal text-sm md:text-base text-white-60">
+                  <strong>Corrective Actions and Training:</strong> Providing
+                  actionable recommendations and training to address
+                  non-compliance and enhance supply chain integrity.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ),
       color: "rgba(187, 19, 11, 0.1)",
       lightColor: "rgba(255, 255, 255, 0.1)",
       gradientId: "gradientInnovative",
@@ -379,27 +532,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                   {content[activeIndex].title}
                 </h2>
 
-                {content[activeIndex].paragraphs.map((paragraph, idx) => (
-                  <p
-                    key={idx}
-                    className="roboto-normal text-sm md:text-base leading-relaxed text-white-60"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-
-                <div className="mt-2">
-                  <ul className="space-y-2">
-                    {content[activeIndex].bulletPoints.map((point, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-c-white mr-2">•</span>
-                        <span className="roboto-normal text-sm md:text-base text-white-60">
-                          {point}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {content[activeIndex].htmlContent}
               </div>
             </div>
           </div>
