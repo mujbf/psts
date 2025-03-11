@@ -101,8 +101,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
     const angle =
       ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
-    const iconRadius = 150;
-    const labelRadius = 155;
+
+    // Adjust radius for mobile screens
+    const iconRadius = isMobile ? 150 : 150;
+    const labelRadius = isMobile ? 155 : 155;
 
     return {
       x: iconRadius * Math.cos(angle),
@@ -123,6 +125,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   useEffect(() => {
     const handleResize = () => {
+      // Force a re-render when resizing to recalculate positions
       setActiveIndex((prev) => prev);
     };
 
@@ -192,7 +195,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                 </radialGradient>
                 {/* Add a clipPath for restricting the view */}
                 <clipPath id="mobileClipPath">
-                  <rect x="-225" y="-225" width="450" height="225" />
+                  <rect x="-225" y="-225" width="450" height="450" />
                 </clipPath>
                 <clipPath id="desktopClipPath">
                   <rect x="-225" y="-225" width="225" height="450" />

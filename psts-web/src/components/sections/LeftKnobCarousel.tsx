@@ -295,7 +295,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
     const sectionAngle = 60;
     const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
-    const baseAngle = isMobile ? 180 : -90; // Start from bottom for mobile, left for desktop
+    const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
 
