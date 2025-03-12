@@ -519,7 +519,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
         </div>
 
         <div className="max-w-7xl mx-auto px-4 md:pl-64 lg:pl-80 w-full md:pb-0 pb-72">
-          <div className="p-8 md:p-12 w-full md:w-[80%] flex flex-col gap-6">
+          <div className="py-8 md:p-12 w-full md:w-[80%] flex flex-col gap-6">
             <div
               className={`transition-all duration-500 transform ${
                 isAnimating

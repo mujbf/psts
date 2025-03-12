@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface ContentItem {
   iconPath: string;
@@ -18,6 +18,11 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isIOS, setIsIOS] = useState<boolean>(false);
+
+  // Ref for container to measure actual width
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const content: ContentItem[] = [
     {
@@ -49,6 +54,31 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     },
   ];
 
+  // Check for iOS device
+  useEffect(() => {
+    const checkIsIOS = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    setIsIOS(checkIsIOS());
+  }, []);
+
+  // Handle mobile detection with responsive design
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        setIsMobile(window.innerWidth < 768);
+      }
+    };
+
+    // Initialize on mount
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setIsAnimating(true);
@@ -63,7 +93,6 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   const calculateCarouselSection = (index: number): string => {
     const sectionAngle = 60; // Keeping the original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles to shift slightly anticlockwise
     const baseAngle = isMobile ? -180 : 90; // Shifted from -160 to -180 for mobile, from 110 to 90 for desktop
     const startAngle = baseAngle + index * sectionAngle;
@@ -96,15 +125,27 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     index: number
   ): { x: number; y: number; labelX: number; labelY: number } => {
     const sectionAngle = 60; // Keeping original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles to shift slightly anticlockwise
     const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
-    const angle =
-      ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
 
-    // Adjust radius for mobile screens
-    const iconRadius = isMobile ? 150 : 150;
-    const labelRadius = isMobile ? 155 : 155;
+    // iOS-specific adjustment
+    const iosAngleAdjustment = isIOS && isMobile ? 10 : 0;
+    const angle =
+      ((baseAngle +
+        index * sectionAngle +
+        sectionAngle / 2 +
+        iosAngleAdjustment) *
+        Math.PI) /
+      180;
+
+    // Adjust radius for mobile screens with iOS-specific adjustments
+    const baseIconRadius = isMobile ? 150 : 150;
+    const baseLabelRadius = isMobile ? 155 : 155;
+
+    // iOS-specific radius adjustment
+    const iconRadius = isIOS && isMobile ? baseIconRadius - 10 : baseIconRadius;
+    const labelRadius =
+      isIOS && isMobile ? baseLabelRadius - 10 : baseLabelRadius;
 
     return {
       x: iconRadius * Math.cos(angle),
@@ -117,26 +158,13 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   // Calculate the rotation angle for the inner wheel arrow
   const calculateArrowRotation = () => {
     const sectionAngle = 60; // Keeping original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles to shift slightly anticlockwise
     const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      // Force a re-render when resizing to recalculate positions
-      setActiveIndex((prev) => prev);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = window.innerWidth < 768;
-
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden" ref={containerRef}>
       <div className="h-full w-full relative flex items-start md:items-center">
         <div className="max-w-7xl mx-auto px-4">
           <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-8 md:gap-16">
@@ -168,6 +196,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
             <svg
               viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 225 450"}
               className="w-full h-full transform transition-transform duration-500"
+              preserveAspectRatio="xMidYMid meet"
             >
               <defs>
                 {/* Gradients for sections */}
@@ -193,7 +222,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   <stop offset="0%" stopColor="rgba(207, 61, 51, 1)" />
                   <stop offset="100%" stopColor="rgba(196, 57, 47, 1)" />
                 </radialGradient>
-                {/* Add a clipPath for restricting the view */}
+                {/* Add clipPath elements */}
                 <clipPath id="mobileClipPath">
                   <rect x="-225" y="-225" width="450" height="450" />
                 </clipPath>
@@ -201,7 +230,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   <rect x="-225" y="-225" width="225" height="450" />
                 </clipPath>
               </defs>
-              {/* Add the filter definition */}
+              {/* Filters */}
               <filter
                 id="dropShadow"
                 x="-20%"
@@ -212,13 +241,11 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                 <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
                 <feOffset dx="2" dy="2" result="offsetblur" />
                 <feComponentTransfer>
-                  <feFuncA type="linear" slope="0.3" />{" "}
-                  {/* Controls shadow opacity */}
+                  <feFuncA type="linear" slope="0.3" />
                 </feComponentTransfer>
                 <feMerge>
-                  <feMergeNode /> {/* This contains the shadow */}
-                  <feMergeNode in="SourceGraphic" />{" "}
-                  {/* This contains the circle */}
+                  <feMergeNode />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
               <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -274,6 +301,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   className="transition-transform duration-300"
                   style={{
                     transform: `rotate(${calculateArrowRotation()}deg)`,
+                    transformOrigin: "center",
                   }}
                 >
                   <circle
@@ -322,43 +350,30 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                         strokeWidth="0"
                         className="transition-colors duration-300"
                       />
-                      <foreignObject
-                        x={position.x - 15}
-                        y={position.y - 28}
+
+                      {/* Use normal SVG elements instead of foreignObject for better iOS compatibility */}
+                      <image
+                        href={item.iconPath}
+                        x={position.x - 18}
+                        y={position.y - 36}
                         width="30"
                         height="30"
-                        className="pointer-events-none"
+                        className={isActive ? "" : "opacity-50"}
+                        filter={isActive ? "url(#whiteGlow)" : ""}
+                      />
+
+                      <text
+                        x={position.labelX}
+                        y={position.labelY + 8}
+                        textAnchor="middle"
+                        className={`roboto-normal text-[9px] ${
+                          isActive ? "text-c-white" : "text-white-50"
+                        }`}
+                        fontSize="9"
+                        fill={isActive ? "#FFFFFF" : "rgba(255,255,255,0.5)"}
                       >
-                        <div className="w-full h-full flex items-center justify-center">
-                          <img
-                            src={item.iconPath}
-                            alt={item.heading}
-                            className={`w-6 h-6 transition-all duration-300 ${
-                              isActive ? "" : "opacity-50"
-                            }`}
-                            style={
-                              isActive ? { filter: "url(#whiteGlow)" } : {}
-                            }
-                          />
-                        </div>
-                      </foreignObject>
-                      <foreignObject
-                        x={position.labelX - 54}
-                        y={position.labelY - 0}
-                        width="120"
-                        height="24"
-                        className="pointer-events-none"
-                      >
-                        <div className="w-full h-full flex items-center justify-center">
-                          <span
-                            className={`roboto-normal text-[9px] ${
-                              isActive ? "text-c-white" : "text-white-50"
-                            }`}
-                          >
-                            {item.heading}
-                          </span>
-                        </div>
-                      </foreignObject>
+                        {item.heading}
+                      </text>
                     </g>
                   );
                 })}
