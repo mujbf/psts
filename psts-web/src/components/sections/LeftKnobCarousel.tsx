@@ -18,6 +18,8 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isIOS, setIsIOS] = useState<boolean>(false);
 
   const content: ContentItem[] = [
     {
@@ -239,11 +241,35 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
     return () => clearInterval(timer);
   }, [rotationInterval, content.length]);
 
+  useEffect(() => {
+    // Detect iOS
+    const detectiOS = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsIOS(detectiOS());
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Event listener for resize
+    const handleResize = () => {
+      checkMobile();
+      setActiveIndex((prev) => prev); // Refresh current state
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const calculateCarouselSection = (index: number): string => {
     const sectionAngle = 60; // Keeping the original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
-    const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
+    const baseAngle = isMobile ? -180 : -90; // Start from bottom for mobile, left for desktop
     const startAngle = baseAngle + index * sectionAngle;
     const endAngle = startAngle + sectionAngle;
 
@@ -274,13 +300,14 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
     index: number
   ): { x: number; y: number; labelX: number; labelY: number } => {
     const sectionAngle = 60;
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
-    const baseAngle = isMobile ? 180 : -90; // Start from bottom for mobile, left for desktop
+    const baseAngle = isMobile ? -180 : -90; // Start from bottom for mobile, left for desktop
     const angle =
       ((baseAngle + index * sectionAngle + sectionAngle / 2) * Math.PI) / 180;
-    const iconRadius = 150;
-    const labelRadius = 155;
+
+    // Adjust radius for iOS devices
+    const iconRadius = isIOS && isMobile ? 140 : 150;
+    const labelRadius = isIOS && isMobile ? 145 : 155;
 
     return {
       x: iconRadius * Math.cos(angle),
@@ -293,32 +320,24 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
   // Calculate the rotation angle for the inner wheel arrow
   const calculateArrowRotation = () => {
     const sectionAngle = 60;
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
-    const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
+    const baseAngle = isMobile ? -180 : -90; // Start from bottom for mobile, left for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setActiveIndex((prev) => prev);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = window.innerWidth < 768;
 
   return (
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-start md:items-center">
         {/* Fixed positioning for proper centering */}
-        <div className="absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-[-50%] bottom-[-150px] left-1/2 -translate-x-1/2 md:bottom-auto">
+        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:left-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-[-50%] md:bottom-auto">
           <div className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
             <svg
-              viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 450 450"}
+              viewBox={"-225 -225 450 450"}
               className="w-full h-full transform transition-transform duration-500"
+              style={{
+                // Adjust viewBox positioning for iOS
+                transform: isIOS && isMobile ? "" : undefined,
+              }}
             >
               <defs>
                 {/* Gradients for sections */}
@@ -332,7 +351,6 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                     fx="0%"
                     fy="0%"
                     gradientTransform={`rotate(${
-                      // Calculate angle based on item position
                       ((isMobile ? 0 : 0) + index * 60 + 30) % 360
                     })`}
                   >
@@ -346,7 +364,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                 </radialGradient>
                 {/* Add a clipPath for restricting the view to half circle */}
                 <clipPath id="mobileClipPath">
-                  <path d="M 0,-225 A 225,225 0 0,1 0,225 L 0,0 Z" />
+                  <rect x="-225" y="-225" width="450" height="450" />
                 </clipPath>
                 <clipPath id="desktopClipPath">
                   <path d="M 0,-225 A 225,225 0 0,1 0,225 L 0,0 Z" />
@@ -473,6 +491,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                         strokeWidth="0"
                         className="transition-colors duration-300"
                       />
+                      {/* Icon position adjusted for iOS */}
                       <foreignObject
                         x={position.x - 15}
                         y={position.y - 28}
@@ -493,12 +512,19 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                           />
                         </div>
                       </foreignObject>
+
+                      {/* Text label position adjusted for iOS */}
                       <foreignObject
                         x={position.labelX - 66}
                         y={position.labelY - 0}
                         width="120"
                         height="24"
                         className="pointer-events-none"
+                        style={{
+                          // Adjust label position slightly for iOS if needed
+                          transform:
+                            isIOS && isMobile ? "translateY(-5px)" : undefined,
+                        }}
                       >
                         <div className="w-full h-full flex items-center justify-center">
                           <span
