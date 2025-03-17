@@ -184,7 +184,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-center">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-16">
+          <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-8 md:gap-16">
             <h1 className="montserrat-medium text-3xl md:text-7xl leading-tight gradient-text">
               Your Trusted Partner in Trade, Customs, and Brand Protection
               Solutions
