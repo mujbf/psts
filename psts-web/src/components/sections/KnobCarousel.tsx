@@ -13,11 +13,55 @@ interface KnobCarouselProps {
   rotationInterval?: number;
 }
 
+// New Mobile Tabs Component with proper TypeScript types
+const MobileTabs = ({
+  content,
+  activeIndex,
+  setActiveIndex,
+  setIsAnimating,
+}: {
+  content: ContentItem[];
+  activeIndex: number;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <div className="md:hidden w-full">
+      {/* Pill-shaped container */}
+      <div className="flex bg-[rgba(255,255,255,0.1)] rounded-full p-1 mb-6">
+        {content.map((item, index) => (
+          <button
+            key={index}
+            className={`flex-1 py-2 px-3 rounded-full text-center text-sm transition-all duration-300 ${
+              activeIndex === index
+                ? "bg-[rgba(207,61,51,0.8)] text-c-white"
+                : "text-white-50 hover:text-white"
+            }`}
+            onClick={() => {
+              setIsAnimating(true);
+              setTimeout(() => {
+                setActiveIndex(index);
+                setIsAnimating(false);
+              }, 300);
+            }}
+          >
+            <div className="flex flex-col items-center justify-center gap-1">
+              <img src={item.iconPath} alt="" className="w-6 h-6" />
+              <span className="roboto-normal text-[12px]">{item.heading}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const KnobCarousel: React.FC<KnobCarouselProps> = ({
   rotationInterval = 10000,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const content: ContentItem[] = [
     {
@@ -50,6 +94,22 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   ];
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    // Only auto-rotate on desktop
+    if (isMobile) return;
+
     const timer = setInterval(() => {
       setIsAnimating(true);
       setTimeout(() => {
@@ -59,11 +119,10 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     }, rotationInterval);
 
     return () => clearInterval(timer);
-  }, [rotationInterval, content.length]);
+  }, [rotationInterval, content.length, isMobile]);
 
   const calculateCarouselSection = (index: number): string => {
     const sectionAngle = 60; // Keeping the original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles to shift slightly anticlockwise
     const baseAngle = isMobile ? -180 : 90; // Shifted from -160 to -180 for mobile, from 110 to 90 for desktop
     const startAngle = baseAngle + index * sectionAngle;
@@ -96,7 +155,6 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     index: number
   ): { x: number; y: number; labelX: number; labelY: number } => {
     const sectionAngle = 60; // Keeping original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles to shift slightly anticlockwise
     const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
     const angle =
@@ -117,33 +175,29 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
   // Calculate the rotation angle for the inner wheel arrow
   const calculateArrowRotation = () => {
     const sectionAngle = 60; // Keeping original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles to shift slightly anticlockwise
     const baseAngle = isMobile ? -180 : 90; // Shifted from -165 to -180 for mobile, from 110 to 90 for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      // Force a re-render when resizing to recalculate positions
-      setActiveIndex((prev) => prev);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = window.innerWidth < 768;
-
   return (
     <div className="relative w-full h-full overflow-hidden">
-      <div className="h-full w-full relative flex items-start md:items-center">
+      <div className="h-full w-full relative flex items-center">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-8 md:gap-16">
+          <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-16">
             <h1 className="montserrat-medium text-3xl md:text-7xl leading-tight gradient-text">
               Your Trusted Partner in Trade, Customs, and Brand Protection
               Solutions
             </h1>
+
+            {/* Add the Mobile Tabs component here */}
+            <MobileTabs
+              content={content}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              setIsAnimating={setIsAnimating}
+            />
+
             <div
               className={`transition-all duration-500 transform ${
                 isAnimating
@@ -163,7 +217,8 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
           </div>
         </div>
 
-        <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
+        {/* Hide the carousel wheel on mobile */}
+        <div className="hidden md:block absolute bottom-[-200px] left-1/2 -translate-x-1/2 md:top-1/2 md:right-[-200px] md:left-auto md:translate-y-[-60%] md:translate-x-0">
           <div className="relative w-[400px] h-[400px] md:w-[720px] md:h-[720px]">
             <svg
               viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 225 450"}

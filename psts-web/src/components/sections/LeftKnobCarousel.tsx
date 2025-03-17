@@ -13,11 +13,55 @@ interface LeftKnobCarouselProps {
   rotationInterval?: number;
 }
 
+// New Mobile Tabs Component for LeftKnobCarousel
+const MobileTabs = ({
+  content,
+  activeIndex,
+  setActiveIndex,
+  setIsAnimating,
+}: {
+  content: ContentItem[];
+  activeIndex: number;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <div className="md:hidden w-full">
+      {/* Pill-shaped container */}
+      <div className="flex bg-[rgba(255,255,255,0.1)] rounded-full p-1 mb-6">
+        {content.map((item, index) => (
+          <button
+            key={index}
+            className={`flex-1 py-2 px-3 rounded-full text-center text-sm transition-all duration-300 ${
+              activeIndex === index
+                ? "bg-[rgba(207,61,51,0.8)] text-c-white"
+                : "text-white-50 hover:text-white"
+            }`}
+            onClick={() => {
+              setIsAnimating(true);
+              setTimeout(() => {
+                setActiveIndex(index);
+                setIsAnimating(false);
+              }, 300);
+            }}
+          >
+            <div className="flex flex-col items-center justify-center gap-1">
+              <img src={item.iconPath} alt="" className="w-6 h-6" />
+              <span className="roboto-normal text-[12px]">{item.title}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
   rotationInterval = 10000,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const content: ContentItem[] = [
     {
@@ -227,7 +271,24 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
     },
   ];
 
+  // Add useEffect to handle mobile detection
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    // Only auto-rotate on desktop
+    if (isMobile) return;
+
     const timer = setInterval(() => {
       setIsAnimating(true);
       setTimeout(() => {
@@ -237,11 +298,10 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
     }, rotationInterval);
 
     return () => clearInterval(timer);
-  }, [rotationInterval, content.length]);
+  }, [rotationInterval, content.length, isMobile]);
 
   const calculateCarouselSection = (index: number): string => {
     const sectionAngle = 60; // Keeping the original 60 degree sections
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
     const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
     const startAngle = baseAngle + index * sectionAngle;
@@ -274,7 +334,6 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
     index: number
   ): { x: number; y: number; labelX: number; labelY: number } => {
     const sectionAngle = 60;
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
     const baseAngle = isMobile ? 180 : -90; // Start from bottom for mobile, left for desktop
     const angle =
@@ -293,28 +352,44 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
   // Calculate the rotation angle for the inner wheel arrow
   const calculateArrowRotation = () => {
     const sectionAngle = 60;
-    const isMobile = window.innerWidth < 768;
     // Adjusted base angles for half-circle positioning
     const baseAngle = isMobile ? -30 : -90; // Start from bottom for mobile, left for desktop
     return baseAngle + activeIndex * sectionAngle + sectionAngle / 2;
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setActiveIndex((prev) => prev);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = window.innerWidth < 768;
-
   return (
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-start md:items-center">
+        <div className="max-w-7xl mx-0 md:mx-auto md:px-4 md:pl-64 lg:pl-80 w-full md:pb-0">
+          <div className="p-8 md:p-12 w-full md:w-[80%] flex flex-col gap-6">
+            {/* Add the Mobile Tabs component here */}
+            <MobileTabs
+              content={content}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              setIsAnimating={setIsAnimating}
+            />
+
+            <div
+              className={`transition-all duration-500 transform ${
+                isAnimating
+                  ? "opacity-0 -translate-y-4"
+                  : "opacity-100 translate-y-0"
+              }`}
+            >
+              <div className="flex flex-col gap-6">
+                <h2 className="montserrat-semibold text-2xl md:text-3xl text-c-white">
+                  {content[activeIndex].title}
+                </h2>
+
+                {content[activeIndex].htmlContent}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Fixed positioning for proper centering */}
-        <div className="absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-[-50%] bottom-[-150px] left-1/2 -translate-x-1/2 md:bottom-auto">
+        <div className="hidden md:block absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-[-50%] bottom-[-150px] left-1/2 -translate-x-1/2 md:bottom-auto">
           <div className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px]">
             <svg
               viewBox={isMobile ? "-225 -225 450 450" : "-225 -225 450 450"}
@@ -515,26 +590,6 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
                 })}
               </g>
             </svg>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 md:pl-64 lg:pl-80 w-full md:pb-0 pb-72">
-          <div className="p-8 md:p-12 w-full md:w-[80%] flex flex-col gap-6">
-            <div
-              className={`transition-all duration-500 transform ${
-                isAnimating
-                  ? "opacity-0 -translate-y-4"
-                  : "opacity-100 translate-y-0"
-              }`}
-            >
-              <div className="flex flex-col gap-6">
-                <h2 className="montserrat-semibold text-2xl md:text-3xl text-c-white">
-                  {content[activeIndex].title}
-                </h2>
-
-                {content[activeIndex].htmlContent}
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const ServicePage: React.FC<ServicePageProps> = ({}) => {
   return (
     <>
       <ServicesHero />
-      <div className="w-screen h-[calc(100vh-96px)] relative overflow-hidden primary-gradient z-1">
+      <div className="w-screen h-auto md:h-[calc(100vh-96px)] relative overflow-hidden primary-gradient z-1">
         <LeftKnobCarousel rotationInterval={5000} />
       </div>
       <Col3 />
