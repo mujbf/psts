@@ -9,7 +9,7 @@ import ContactUs from "../components/sections/ContactUs";
 const Home: React.FC = () => {
   return (
     <>
-      <div className="w-screen h-[calc(100vh-96px)] relative overflow-hidden primary-gradient z-1">
+      <div className="w-screen h-fit md:h-[calc(100vh-96px)] relative overflow-hidden primary-gradient z-1">
         <KnobCarousel rotationInterval={10000} />
       </div>
       <Col1 />

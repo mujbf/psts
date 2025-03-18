@@ -185,18 +185,12 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
       <div className="h-full w-full relative flex items-center">
         <div className="max-w-7xl mx-auto px-4">
           <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-8 md:gap-16">
-            <h1 className="montserrat-medium text-3xl md:text-7xl leading-tight gradient-text">
+            <h1 className="montserrat-medium text-3xl md:text-7xl leading-tight gradient-text text-center md:text-left">
               Your Trusted Partner in Trade, Customs, and Brand Protection
               Solutions
             </h1>
 
             {/* Add the Mobile Tabs component here */}
-            <MobileTabs
-              content={content}
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-              setIsAnimating={setIsAnimating}
-            />
 
             <div
               className={`transition-all duration-500 transform ${
@@ -205,8 +199,8 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                   : "opacity-100 translate-y-0"
               }`}
             >
-              <div className="flex flex-col gap-4">
-                <h2 className="montserrat-semibold text-xl text-c-white">
+              <div className="flex flex-col gap-4 mb-8 md:mb-0">
+                <h2 className="montserrat-semibold text-xl text-c-white text-center md:text-left">
                   {content[activeIndex].heading}
                 </h2>
                 <p className="roboto-normal text-sm md:text-[16px] leading-normal text-white-60">
@@ -214,6 +208,12 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
                 </p>
               </div>
             </div>
+            <MobileTabs
+              content={content}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              setIsAnimating={setIsAnimating}
+            />
           </div>
         </div>
 

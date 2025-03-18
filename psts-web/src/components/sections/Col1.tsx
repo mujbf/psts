@@ -47,7 +47,7 @@ const Col1: React.FC = () => {
 
   return (
     <div className="w-full">
-      <div className="max-w-7xl mx-auto px-4 md:px-12 py-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-10 md:py-20">
         <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-black-60 mb-16">
           Your IP. <br />
           <span className="text-primary">Your competitive advantage.</span>

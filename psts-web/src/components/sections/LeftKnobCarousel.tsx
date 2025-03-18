@@ -378,7 +378,7 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
               }`}
             >
               <div className="flex flex-col gap-6">
-                <h2 className="montserrat-semibold text-2xl md:text-3xl text-c-white">
+                <h2 className="montserrat-semibold text-2xl md:text-3xl text-c-white text-center md:text-left">
                   {content[activeIndex].title}
                 </h2>
 
