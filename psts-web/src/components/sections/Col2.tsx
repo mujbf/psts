@@ -39,7 +39,7 @@ const PartnersSection: React.FC = () => {
               <h3 className="montserrat-semibold text-3xl text-primary mb-4">
                 {card.name}
               </h3>
-              <p className="roboto-body text-black-60 mb-4">
+              <p className="roboto-normal text-black-60 mb-4">
                 {card.description}
               </p>
               <TextButton href={card.link} text="Learn More" />

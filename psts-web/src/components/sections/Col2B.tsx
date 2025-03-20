@@ -183,7 +183,7 @@ const PartnersSectionDetails: React.FC = () => {
               <h3 className="montserrat-semibold text-3xl text-primary mb-4">
                 {card.name}
               </h3>
-              <div className="roboto-body text-black-60 mb-4">
+              <div className="roboto-normal text-black-60 mb-4">
                 {card.description}
               </div>
             </div>

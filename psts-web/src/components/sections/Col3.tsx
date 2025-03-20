@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Star, StarHalf } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import imageSample from "../../assets/images/testimonal-user-sample.png";
 
 interface Testimonial {
@@ -12,87 +12,83 @@ interface Testimonial {
 }
 
 const Col3: React.FC = () => {
-  const [position, setPosition] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const testimonials: Testimonial[] = [
     {
-      name: "Sarah Chen",
-      designation: "Global Trade Director",
+      name: "Jack Chang",
+      designation:
+        "Former Assistant General Counsel of Johnson & Johnson, Senior IP Counsel of General Electric Company and founder and Chairman of the Quality Brands Protection Committee in China",
       quote:
-        "Their compliance solutions have transformed how we manage international trade operations. The level is unmatched.",
+        "I have known Mr. Leigh Schmid, a former senior Customs official and senior executive of a multination company, for many years. Mr. Schmid's knowledge and experiences in brand protection in compliant way, as well as in matters related to trade, Customs and compliance are unparalleled.",
       rating: 5,
       imageUrl: imageSample,
     },
     {
-      name: "Michael Rodriguez",
-      designation: "Risk Management Officer",
+      name: "Jack Chang",
+      designation:
+        "Former Assistant General Counsel of Johnson & Johnson, Senior IP Counsel of General Electric Company and founder and Chairman of the Quality Brands Protection Committee in China",
       quote:
-        "The regulatory intelligence provided helps us stay ahead of compliance requirements. It's been crucial for our global expansion.",
-      rating: 4.5,
-      imageUrl: imageSample,
-    },
-    {
-      name: "Emma Thompson",
-      designation: "Supply Chain Manager",
-      quote:
-        "Outstanding risk assessment frameworks that have helped us navigate complex international markets with confidence.",
+        "I have known Mr. Leigh Schmid, a former senior Customs official and senior executive of a multination company, for many years. Mr. Schmid's knowledge and experiences in brand protection in compliant way, as well as in matters related to trade, Customs and compliance are unparalleled.",
       rating: 5,
       imageUrl: imageSample,
     },
     {
-      name: "David Kim",
-      designation: "Compliance Officer",
+      name: "Jack Chang",
+      designation:
+        "Former Assistant General Counsel of Johnson & Johnson, Senior IP Counsel of General Electric Company and founder and Chairman of the Quality Brands Protection Committee in China",
       quote:
-        "Their solutions have streamlined our compliance processes and significantly reduced our operational risks.",
-      rating: 4.5,
-      imageUrl: imageSample,
-    },
-    {
-      name: "Michael Rodriguez",
-      designation: "Risk Management Officer",
-      quote:
-        "The regulatory intelligence provided helps us stay ahead of compliance requirements. It's been crucial for our global expansion.",
-      rating: 4.5,
-      imageUrl: imageSample,
-    },
-    {
-      name: "Emma Thompson",
-      designation: "Supply Chain Manager",
-      quote:
-        "Outstanding risk assessment frameworks that have helped us navigate complex international markets with confidence.",
+        "I have known Mr. Leigh Schmid, a former senior Customs official and senior executive of a multination company, for many years. Mr. Schmid's knowledge and experiences in brand protection in compliant way, as well as in matters related to trade, Customs and compliance are unparalleled.",
       rating: 5,
       imageUrl: imageSample,
     },
   ];
 
-  const renderStars = (rating: number) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
+  // Auto-scroll carousel every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <Star
-          key={`star-${i}`}
-          className="w-8 h-8 text-yellow-400 fill-current"
-          strokeWidth={1}
-          stroke="#FC430F"
-        />
-      );
-    }
+    return () => clearInterval(interval);
+  }, [currentIndex]);
 
-    if (hasHalfStar) {
-      stars.push(
-        <StarHalf
-          key="half-star"
-          className="w-8 h-8 text-yellow-400 fill-current"
-          strokeWidth={1}
-          stroke="#FC430F"
-        />
-      );
-    }
+  const nextSlide = () => {
+    if (isTransitioning) return;
 
-    return stars;
+    setIsTransitioning(true);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+    );
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 500);
+  };
+
+  const prevSlide = () => {
+    if (isTransitioning) return;
+
+    setIsTransitioning(true);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+    );
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 500);
+  };
+
+  const goToSlide = (index: number) => {
+    if (isTransitioning) return;
+
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 500);
   };
 
   return (
@@ -103,42 +99,93 @@ const Col3: React.FC = () => {
           <span className="text-primary"> Say About Us</span>
         </h1>
 
-        <div className="relative overflow-hidden">
-          <div
-            className="flex transition-transform duration-1000 ease-in-out"
-            style={{ transform: `translateX(${position}%)` }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="min-w-full md:min-w-[33.333%] p-4">
-                <div 
-                  className="px-6 py-10 rounded-2xl bg-white flex flex-col items-center gap-8"
-                  style={{
-                    border: '2px solid #FFEAE4',
-                    boxShadow: '0px 0px 20px -4px #FFC6B5'
-                  }}
-                >
-                  <img
-                    src={testimonial.imageUrl}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
-                  <div className="">
-                    <h3 className="montserrat-semibold text-3xl text-primary text-center">
-                      {testimonial.name}
-                    </h3>
-                    <p className="montserrat-semibold text-lg text-black-60 text-center">
-                      {testimonial.designation}
-                    </p>
+        <div className="relative">
+          {/* Desktop navigation arrows - only visible on desktop */}
+          <div className="hidden md:flex absolute -left-14 -right-14 inset-y-0 items-center justify-between pointer-events-none z-10">
+            <button
+              onClick={prevSlide}
+              className="p-3 rounded-full bg-white shadow-md text-gray-500 hover:text-primary hover:bg-gray-100 hover:shadow-lg transition-all duration-300 ease-in-out pointer-events-auto"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="p-3 rounded-full bg-white shadow-md text-gray-500 hover:text-primary hover:bg-gray-100 hover:shadow-lg transition-all duration-300 ease-in-out pointer-events-auto"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Carousel container - narrower on desktop for arrow spacing */}
+          <div className="overflow-hidden relative md:mx-12">
+            <div
+              className="flex transition-all duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="min-w-full px-4">
+                  <div
+                    className="px-6 md:px-12 py-10 rounded-2xl bg-white flex flex-col items-center gap-8"
+                    style={{
+                      border: "2px solid #FFEAE4",
+                      boxShadow: "0px 0px 20px -4px #FFC6B5",
+                    }}
+                  >
+                    <div className="flex flex-col gap-4">
+                      <h3 className="montserrat-semibold text-3xl text-primary text-center md:text-left">
+                        {testimonial.name}
+                      </h3>
+                      <p className="montserrat-semibold text-md text-black-60 text-center md:text-left">
+                        {testimonial.designation}
+                      </p>
+                    </div>
+
+                    <blockquote className="roboto-normal text-black-60 mb-4 text-center md:text-left py-4 border-y border-[#CECECC]">
+                      "{testimonial.quote}"
+                    </blockquote>
                   </div>
-
-                  <blockquote className="roboto-body text-black-60 mb-4 text-center py-4 border-y border-[#CECECC]">
-                    "{testimonial.quote}"
-                  </blockquote>
-
-                  <div className="flex">{renderStars(testimonial.rating)}</div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile navigation and indicators - combined into one row on mobile */}
+          <div className="flex items-center justify-center mt-8 space-x-4">
+            {/* Mobile-only arrow navigation */}
+            <button
+              onClick={prevSlide}
+              className="md:hidden p-3 rounded-full bg-white shadow-md text-gray-500 hover:text-primary hover:bg-gray-100 hover:shadow-lg transition-all duration-300 ease-in-out"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Indicator dots */}
+            <div className="flex justify-center space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? "bg-primary scale-110"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Mobile-only arrow navigation */}
+            <button
+              onClick={nextSlide}
+              className="md:hidden p-3 rounded-full bg-white shadow-md text-gray-500 hover:text-primary hover:bg-gray-100 hover:shadow-lg transition-all duration-300 ease-in-out"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>

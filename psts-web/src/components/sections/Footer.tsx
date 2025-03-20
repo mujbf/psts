@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
               alt="Perera and Schmid"
               className="h-auto w-full"
             />
-            <p className="roboto-body text-c-white">
+            <p className="roboto-normal text-c-white">
               Your trusted partner in navigating the complexities of trade,
               customs, and brand protection. With precision and excellence, we
               help businesses thrive globally.
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="roboto-body text-c-white hover:text-white transition-colors flex items-center group"
+                    className="roboto-normal text-c-white hover:text-white transition-colors flex items-center group"
                   >
                     <ArrowRight className="w-4 h-4 mr-2 transition-transform transform group-hover:translate-x-1" />
                     {link.text}
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={info.href}
-                    className="roboto-body text-c-white hover:text-white transition-colors flex items-center gap-3"
+                    className="roboto-normal text-c-white hover:text-white transition-colors flex items-center gap-3"
                   >
                     {info.icon}
                     {info.text}
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright Section */}
         <div className="mt-16 pt-8 border-t border-gray-800">
-          <p className="roboto-body text-c-white text-center">
+          <p className="roboto-normal text-c-white text-center">
             © {new Date().getFullYear()} Perera and Schmid. All rights reserved.
           </p>
         </div>

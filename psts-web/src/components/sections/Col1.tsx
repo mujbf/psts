@@ -1,5 +1,5 @@
 import React from "react";
-import TextButton from "../blocks/TextButton";
+// import TextButton from "../blocks/TextButton";
 import "../../assets/css/titleInnerShadow.css";
 
 const Col1: React.FC = () => {
@@ -71,7 +71,7 @@ const Col1: React.FC = () => {
                 <p className="roboto-body text-black-60 text-center">
                   {card.description}
                 </p>
-                <TextButton href={card.link} text="Learn More" />
+                {/* <TextButton href={card.link} text="Learn More" /> */}
               </div>
             </div>
           ))}

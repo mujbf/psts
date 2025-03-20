@@ -10,7 +10,7 @@ const Side3: React.FC = () => {
             <h1 className="montserrat-semibold text-primary text-2xl md:text-3xl leading-tight">
               Our Vision
             </h1>
-            <p className="roboto-body text-black-60 ">
+            <p className="roboto-normal text-black-60 ">
               To be the premier trade services firm in the APAC region, setting
               the gold standard for brand protection, trade compliance, and
               sustainable business practices in global commerce.
@@ -21,7 +21,7 @@ const Side3: React.FC = () => {
             <h1 className="montserrat-semibold text-primary text-2xl md:text-3xl leading-tight">
               Our Mission
             </h1>
-            <p className="roboto-body text-black-60 text-justify">
+            <p className="roboto-normal text-black-60 text-justify">
               To empower businesses with expert guidance and innovative
               solutions that ensure trade compliance, protect brand integrity,
               and build sustainable supply chains. Through our deep regional

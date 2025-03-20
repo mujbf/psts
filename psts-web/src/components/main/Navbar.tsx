@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logoImg from "../../assets/logo.svg";
 import CustomButton from "../blocks/CustomButton";
 
@@ -103,7 +103,7 @@ const Navbar = () => {
               className="block px-3 py-2 rounded-md text-base font-medium text-white bg-orange-600 hover:bg-orange-700 flex items-center"
               onClick={() => setIsOpen(false)}
             >
-              <MessageCircle className="h-4 w-4 mr-2" />
+              {/* <MessageCircle className="h-4 w-4 mr-2" /> */}
               Contact
             </Link>
           </div>
