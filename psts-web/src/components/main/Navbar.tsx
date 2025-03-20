@@ -38,7 +38,7 @@ const Navbar = () => {
               <img
                 src={logoImg}
                 alt="Company Logo"
-                className="w-[80%] md:w-full"
+                className="w-[80%] md:w-full h-auto object-contain transform-none"
               />
             </Link>
           </div>
