@@ -38,12 +38,12 @@ const ContactForm: React.FC = () => {
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 md:px-12 py-20 flex flex-col md:flex-row gap-20">
         <div className="flex flex-col gap-6">
-          <h2 className="montserrat-medium text-4xl md:text-6xl leading-tight text-primary md:mb-20">
+          <h2 className="montserrat-medium text-4xl md:text-6xl leading-tight text-primary md:mb-20 text-center md:text-left">
             Contact Us
           </h2>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <MapPin size={32} className="text-[#AAAAAA]" />
-            <p className="roboto-normal text-black-60">
+            <p className="roboto-normal text-black-60 text-center md:text-left">
               10, Anson Road, #22-02, <br /> International Plaza, Singapore
               079903
             </p>
@@ -52,9 +52,9 @@ const ContactForm: React.FC = () => {
             <PhoneCall size={32} className="text-[#AAAAAA]" />
             <p className="roboto-body text-black-60">+94 11 222 3355</p>
           </div> */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <Mail size={32} className="text-[#AAAAAA]" />
-            <p className="roboto-normal text-black-60">
+            <p className="roboto-normal text-black-60 text-center md:text-left">
               contact@pereraschmid.com
             </p>
           </div>

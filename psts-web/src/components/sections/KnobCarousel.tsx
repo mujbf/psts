@@ -108,7 +108,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
 
   useEffect(() => {
     // Only auto-rotate on desktop
-    if (isMobile) return;
+    // if (isMobile) return;
 
     const timer = setInterval(() => {
       setIsAnimating(true);

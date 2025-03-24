@@ -105,46 +105,20 @@ const LeftKnobCarousel: React.FC<LeftKnobCarouselProps> = ({
               <li className="flex items-start">
                 <span className="text-c-white mr-2">•</span>
                 <span className="roboto-normal text-sm md:text-base text-white-60">
-                  <strong>Risk Mitigation in Supply Chains:</strong>
-                  <ul className="ml-6 mt-2 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-c-white mr-2">•</span>
-                      <span className="roboto-normal text-sm md:text-base text-white-60">
-                        Developing sourcing policies to address risks such as
-                        forced labor and trade sanctions.
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-c-white mr-2">•</span>
-                      <span className="roboto-normal text-sm md:text-base text-white-60">
-                        Identifying low-risk suppliers, especially for raw
-                        materials like cotton and polyester.
-                      </span>
-                    </li>
-                  </ul>
+                  <strong>Risk Mitigation in Supply Chains:</strong> Developing
+                  sourcing policies to address risks such as forced labor and
+                  trade sanctions, and identifying low-risk suppliers,
+                  especially for raw materials like cotton and polyester.
                 </span>
               </li>
               <li className="flex items-start">
                 <span className="text-c-white mr-2">•</span>
                 <span className="roboto-normal text-sm md:text-base text-white-60">
-                  <strong>Regulatory Compliance Support:</strong>
-                  <ul className="ml-6 mt-2 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-c-white mr-2">•</span>
-                      <span className="roboto-normal text-sm md:text-base text-white-60">
-                        Drafting policies and communications to navigate complex
-                        regulations.
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-c-white mr-2">•</span>
-                      <span className="roboto-normal text-sm md:text-base text-white-60">
-                        Advising on compliance with legislation targeting forced
-                        labor and other highly regulated and high risk trade
-                        practices.
-                      </span>
-                    </li>
-                  </ul>
+                  <strong>Regulatory Compliance Support:</strong> Drafting
+                  policies and communications to navigate complex regulations,
+                  and advising on compliance with legislation targeting forced
+                  labor and other highly regulated and high risk trade
+                  practices.
                 </span>
               </li>
             </ul>

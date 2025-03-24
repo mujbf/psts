@@ -14,7 +14,7 @@ const TextButton: React.FC<TextButtonProps> = ({
   return (
     <a
       href={href}
-      className={`inline-flex items-center text-[#696969] montserrat-semibold text-md underline underline-offset-4 transition-all duration-300 hover:text-primary/80 className}`}
+      className={`inline-flex items-center text-[#696969] montserrat-semibold text-md underline underline-offset-4 decoration-2 transition-all duration-300 hover:text-primary/80 className}`}
     >
       {text}
     </a>
