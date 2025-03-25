@@ -94,7 +94,7 @@ const Col3: React.FC = () => {
   return (
     <div className="w-full bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 md:px-12 py-10 md:py-20">
-        <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-gray-800 mb-16">
+        <h1 className="montserrat-medium text-4xl md:text-6xl leading-tight text-gray-800 mb-6">
           What Our Clients
           <span className="text-primary"> Say About Us</span>
         </h1>

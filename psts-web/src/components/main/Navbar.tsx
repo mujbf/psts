@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import logoImg from "../../assets/logo.svg";
+import desktopLogoImg from "../../assets/desktop-logo.svg";
+import mobileLogoImg from "../../assets/mobile-logo.svg";
 import CustomButton from "../blocks/CustomButton";
 
 interface NavItemProps {
@@ -35,10 +36,17 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/">
+              {/* Desktop Logo */}
               <img
-                src={logoImg}
+                src={desktopLogoImg}
                 alt="Company Logo"
-                className="w-[80%] md:w-full h-auto object-contain transform-none"
+                className="hidden md:block w-[80%] md:w-full h-auto object-contain transform-none"
+              />
+              {/* Mobile Logo */}
+              <img
+                src={mobileLogoImg}
+                alt="Company Logo"
+                className="md:hidden h-auto object-contain transform-none"
               />
             </Link>
           </div>
@@ -47,7 +55,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <NavItem to="/">Home</NavItem>
             <NavItem to="/about">About</NavItem>
-            <NavItem to="/services/consulting">Services</NavItem>
+            <NavItem to="/services">Services</NavItem>
 
             {/* Contact Button */}
             <Link to="/contact">
@@ -90,7 +98,7 @@ const Navbar = () => {
               About
             </Link>
             <Link
-              to="/services/consulting"
+              to="/services"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
@@ -103,7 +111,6 @@ const Navbar = () => {
               className="block px-3 py-2 rounded-md text-base font-medium text-white bg-orange-600 hover:bg-orange-700 flex items-center"
               onClick={() => setIsOpen(false)}
             >
-              {/* <MessageCircle className="h-4 w-4 mr-2" /> */}
               Contact
             </Link>
           </div>

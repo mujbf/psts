@@ -28,7 +28,7 @@ const MobileTabs = ({
   return (
     <div className="md:hidden w-full">
       {/* Pill-shaped container */}
-      <div className="flex bg-[rgba(255,255,255,0.1)] rounded-full p-1 mb-6">
+      <div className="flex bg-[rgba(255,255,255,0.1)] rounded-full p-1">
         {content.map((item, index) => (
           <button
             key={index}
@@ -184,7 +184,7 @@ const KnobCarousel: React.FC<KnobCarouselProps> = ({
     <div className="relative w-full h-full overflow-hidden">
       <div className="h-full w-full relative flex items-center">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="pt-8 md:p-8 md:w-[80%] flex flex-col gap-8 md:gap-16">
+          <div className="py-10 md:p-8 md:w-[80%] flex flex-col gap-8 md:gap-16">
             <h1 className="montserrat-medium text-3xl md:text-7xl leading-tight gradient-text text-center md:text-left">
               Your Trusted Partner in Trade, Customs, and Brand Protection
               Solutions

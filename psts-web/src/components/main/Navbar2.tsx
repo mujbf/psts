@@ -20,7 +20,7 @@ const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const services = [
-    { name: "Consulting", href: "/services/consulting" },
+    { name: "Consulting", href: "/servicconsultinges/" },
     { name: "Development", href: "/services/development" },
     { name: "Design", href: "/services/design" },
   ];
