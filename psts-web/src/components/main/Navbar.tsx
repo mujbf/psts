@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import desktopLogoImg from "../../assets/desktop-logo.svg";
-import mobileLogoImg from "../../assets/mobile-logo.svg";
+import mobileLogoImg from "../../assets/mobile-logo-text.svg";
+import additionalMobileLogoImg from "../../assets/mobile-logo-icon.svg";
 import CustomButton from "../blocks/CustomButton";
 
 interface NavItemProps {
@@ -34,20 +35,43 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-12 rounded-b-[10px]">
         <div className="flex justify-between h-24">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/">
+          <div className="flex-shrink-0 flex items-center w-full md:w-fit">
+            <Link to="/" className="w-full">
               {/* Desktop Logo */}
               <img
                 src={desktopLogoImg}
                 alt="Company Logo"
                 className="hidden md:block w-[80%] md:w-full h-auto object-contain transform-none"
               />
-              {/* Mobile Logo */}
-              <img
-                src={mobileLogoImg}
-                alt="Company Logo"
-                className="md:hidden h-auto object-contain transform-none"
-              />
+
+              {/* Mobile Logo Layout */}
+              <div className="md:hidden flex items-center justify-between w-full">
+                {/* SVG Icon */}
+                <img
+                  src={additionalMobileLogoImg}
+                  alt="Mobile Logo Icon"
+                  className="h-8 w-8 object-contain"
+                />
+
+                {/* SVG Text */}
+                <img
+                  src={mobileLogoImg}
+                  alt="Mobile Logo Text"
+                  className="h-6 flex-grow mx-4 object-contain"
+                />
+
+                {/* Menu Icon */}
+                <button
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-orange-600 focus:outline-none"
+                >
+                  {isOpen ? (
+                    <X className="h-8 w-8" />
+                  ) : (
+                    <Menu className="h-8 w-8" />
+                  )}
+                </button>
+              </div>
             </Link>
           </div>
 
@@ -61,20 +85,6 @@ const Navbar = () => {
             <Link to="/contact">
               <CustomButton text="Contact" variant="black" route="/contact" />
             </Link>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-orange-600 focus:outline-none"
-            >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
           </div>
         </div>
       </div>
