@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MapPin, PhoneCall, Mail } from "lucide-react";
 import CustomButton from "../blocks/CustomButton";
+import emailjs from "@emailjs/browser";
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,20 +9,57 @@ const ContactForm: React.FC = () => {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
 
-  const handleSubmit = (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     if (e) {
       e.preventDefault();
     }
 
-    // Create mailto link with form data
-    const mailtoLink = `mailto:nisaldevindar@gmail.com?subject=Contact Form Submission from ${formData.name}&body=Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Open default email client
-    window.location.href = mailtoLink;
+    try {
+      // Replace these with your actual EmailJS credentials
+      const serviceId = "service_7oqla1i";
+      const templateId = "template_013jjcv";
+      const publicKey = "YB6BakE_DZu4DxQrW";
 
-    // Reset form
-    setFormData({ name: "", email: "", message: "" });
+      const templateParams = {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.message,
+      };
+
+      // Send the email using EmailJS
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus({
+          success: true,
+          message: "Your message has been sent successfully!",
+        });
+        // Reset form
+        setFormData({ name: "", email: "", message: "" });
+      }
+    } catch (error) {
+      console.error("Email sending failed:", error);
+      setSubmitStatus({
+        success: false,
+        message: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -61,6 +99,18 @@ const ContactForm: React.FC = () => {
         </div>
 
         <div className="flex-1 bg-white rounded-lg shadow-lg p-8">
+          {submitStatus && (
+            <div
+              className={`p-4 mb-6 rounded-md ${
+                submitStatus.success
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+            >
+              {submitStatus.message}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <input
@@ -103,10 +153,10 @@ const ContactForm: React.FC = () => {
 
             <div className="w-full flex justify-center">
               <CustomButton
-                text="Send Message"
+                text={isSubmitting ? "Sending..." : "Send Message"}
                 variant="black"
                 onClick={() => handleSubmit()}
-                disabled={false}
+                disabled={isSubmitting}
               />
             </div>
           </form>
