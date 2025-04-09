@@ -25,9 +25,9 @@ const ContactForm: React.FC = () => {
 
     try {
       // Replace these with your actual EmailJS credentials
-      const serviceId = "service_7oqla1i";
-      const templateId = "template_013jjcv";
-      const publicKey = "YB6BakE_DZu4DxQrW";
+      const serviceId = "service_ci9cbel";
+      const templateId = "template_o3f3g8j";
+      const publicKey = "kU-WqugHr24JZ8sfl";
 
       const templateParams = {
         from_name: formData.name,
@@ -46,7 +46,7 @@ const ContactForm: React.FC = () => {
       if (response.status === 200) {
         setSubmitStatus({
           success: true,
-          message: "Your message has been sent successfully!",
+          message: "Thank you for contacting us. We will be in touch shortly.",
         });
         // Reset form
         setFormData({ name: "", email: "", message: "" });
@@ -55,7 +55,7 @@ const ContactForm: React.FC = () => {
       console.error("Email sending failed:", error);
       setSubmitStatus({
         success: false,
-        message: "Failed to send message. Please try again later.",
+        message: "Failed to send message. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -102,12 +102,18 @@ const ContactForm: React.FC = () => {
           {submitStatus && (
             <div
               className={`p-4 mb-6 rounded-md ${
-                submitStatus.success
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
+                submitStatus.success ? "bg-green-50" : "bg-red-50"
               }`}
             >
-              {submitStatus.message}
+              <p
+                className={`${
+                  submitStatus.success
+                    ? "text-green-600 switzer-r"
+                    : "text-red-600"
+                }`}
+              >
+                {submitStatus.message}
+              </p>
             </div>
           )}
 
@@ -146,7 +152,7 @@ const ContactForm: React.FC = () => {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full p-4 border-2 border-[#C0C0C078] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-normal text-black-60"
+                className="w-full p-4 border-2 border-[#C0C0C078] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent roboto-normal text-gblack-60"
                 placeholder="Message"
               />
             </div>
