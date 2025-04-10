@@ -26,23 +26,22 @@ const Col3: React.FC = () => {
       imageUrl: imageSample,
     },
     {
-      name: "Jack Chang",
-      designation:
-        "Former Assistant General Counsel of Johnson & Johnson, Senior IP Counsel of General Electric Company and founder and Chairman of the Quality Brands Protection Committee in China",
+      name: "Michael Liska",
+      designation: "Vice President, Supply Chain, EXPRESS (US Retailer)",
       quote:
-        "I have known Mr. Leigh Schmid, a former senior Customs official and senior executive of a multination company, for many years. Mr. Schmid's knowledge and experiences in brand protection in compliant way, as well as in matters related to trade, Customs and compliance are unparalleled.",
+        "I have known Leigh for almost 20 years at this point. I've had the pleasure to be Leigh's customer internally while working for L Brands as well as now being an external customer working with him as he has started his consulting practice. Leigh is an indispensable thought partner that provides thoroughly vetted guidance at all levels of your organization ranging from organization structure/planning level guidance down to the tactical day-to-day operating process(es) as well. His relationships and connections within the customs industry are unmatched making him an invaluable advocate for your business should you need it.",
       rating: 5,
       imageUrl: imageSample,
     },
-    {
-      name: "Jack Chang",
-      designation:
-        "Former Assistant General Counsel of Johnson & Johnson, Senior IP Counsel of General Electric Company and founder and Chairman of the Quality Brands Protection Committee in China",
-      quote:
-        "I have known Mr. Leigh Schmid, a former senior Customs official and senior executive of a multination company, for many years. Mr. Schmid's knowledge and experiences in brand protection in compliant way, as well as in matters related to trade, Customs and compliance are unparalleled.",
-      rating: 5,
-      imageUrl: imageSample,
-    },
+    // {
+    //   name: "Jack Chang",
+    //   designation:
+    //     "Former Assistant General Counsel of Johnson & Johnson, Senior IP Counsel of General Electric Company and founder and Chairman of the Quality Brands Protection Committee in China",
+    //   quote:
+    //     "I have known Mr. Leigh Schmid, a former senior Customs official and senior executive of a multination company, for many years. Mr. Schmid's knowledge and experiences in brand protection in compliant way, as well as in matters related to trade, Customs and compliance are unparalleled.",
+    //   rating: 5,
+    //   imageUrl: imageSample,
+    // },
   ];
 
   // Auto-scroll carousel every 5 seconds
@@ -127,7 +126,7 @@ const Col3: React.FC = () => {
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="min-w-full px-4">
                   <div
-                    className="px-6 md:px-12 py-10 rounded-2xl bg-white flex flex-col items-center gap-8"
+                    className="px-6 md:px-12 py-10 rounded-2xl bg-white flex flex-col items-start gap-8"
                     style={{
                       border: "2px solid #FFEAE4",
                       boxShadow: "0px 0px 20px -4px #FFC6B5",
