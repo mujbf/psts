@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/main/Navbar";
 import Footer from "./components/sections/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 // Page imports
 import Home from "./pages/Home";
@@ -13,20 +14,26 @@ import Knob from "./pages/Knob";
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<ServicePage title="Services" />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/knob" element={<Knob />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <>
+      <Router>
+        <div className="app">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/services"
+              element={<ServicePage title="Services" />}
+            />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/knob" element={<Knob />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+      <Analytics />
+    </>
   );
 }
 
